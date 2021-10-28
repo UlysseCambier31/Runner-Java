@@ -10,6 +10,7 @@ import javafx.scene.paint.Paint;
 public class GameScene extends Scene {
     private Camera MainCamera;
     private staticThing statThing1, statThing2;
+    private int numberOfLives;
 
     public Camera getMainCamera() {
         return MainCamera;
@@ -35,6 +36,7 @@ public class GameScene extends Scene {
         g.getChildren().add(this.statThing1.getImgView());
         g.getChildren().add(this.statThing2.getImgView());
         g.getChildren().add(sprite);
+        this.numberOfLives = 3;
     }
 
     public GameScene(Parent parent, double v, double v1, Camera mainCamera) {
