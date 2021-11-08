@@ -31,8 +31,8 @@ public class GameScene extends Scene {
         sprite.setY(300);
 
 
-        this.statThing1 = new staticThing(0,0,new ImageView("C:\\Users\\cambi\\IdeaProjects\\Runner_Java_Cambier\\img\\background1.png"));
-        this.statThing2 = new staticThing(0,800,new ImageView("C:\\Users\\cambi\\IdeaProjects\\Runner_Java_Cambier\\img\\background1.png"));
+        this.statThing1 = new staticThing(0,0,new ImageView("C:\\Users\\cambi\\IdeaProjects\\Runner_Java_Cambier\\img\\desert.png"));
+        this.statThing2 = new staticThing(0,800,new ImageView("C:\\Users\\cambi\\IdeaProjects\\Runner_Java_Cambier\\img\\desert.png"));
         g.getChildren().add(this.statThing1.getImgView());
         g.getChildren().add(this.statThing2.getImgView());
         g.getChildren().add(sprite);
