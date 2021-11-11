@@ -28,7 +28,7 @@ public class GameScene extends Scene {
 
         Image spriteSheet = new Image("C:\\Users\\Ulysse Cambier\\IdeaProjects\\Runner_Java_Cambier\\img\\heros.png");
         ImageView sprite = new ImageView(spriteSheet);
-        Hero heros = new Hero(200,300,sprite,0);
+        Hero heros = new Hero(200,220,sprite,0);
 
         Image lifespritesheet = new Image("C:\\Users\\Ulysse Cambier\\IdeaProjects\\Runner_Java_Cambier\\img\\life.png");
         ImageView lifesprite = new ImageView(lifespritesheet);
@@ -47,6 +47,7 @@ public class GameScene extends Scene {
             @Override
             public void handle(long time) {
                 heros.update(time);
+                mainCamera.update(time,heros);
             }
         };
         timer.start();

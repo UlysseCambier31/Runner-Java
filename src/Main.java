@@ -13,7 +13,7 @@ public class Main extends Application{
     public void start(Stage primaryStage){
         primaryStage.setTitle("Demo");
         Group root = new Group();
-        Camera MainCamera = new Camera(0,0);
+        Camera MainCamera = new Camera(10,10);
         GameScene scene = new GameScene(root,MainCamera);
         primaryStage.setScene(scene);
         primaryStage.show();
