@@ -24,15 +24,15 @@ public class GameScene extends Scene {
         super(g,600,400);
         this.MainCamera = mainCamera;
 
-        Image spriteSheet = new Image("C:\\Users\\cambi\\IdeaProjects\\Runner_Java_Cambier\\img\\heros.png");
+        Image spriteSheet = new Image("C:\\Users\\Ulysse Cambier\\IdeaProjects\\Runner_Java_Cambier\\img\\heros.png");
         ImageView sprite = new ImageView(spriteSheet);
         sprite.setViewport(new Rectangle2D(20,0,65,100));
         sprite.setX(200);
         sprite.setY(300);
 
 
-        this.statThing1 = new staticThing(0,0,new ImageView("C:\\Users\\cambi\\IdeaProjects\\Runner_Java_Cambier\\img\\desert.png"));
-        this.statThing2 = new staticThing(0,800,new ImageView("C:\\Users\\cambi\\IdeaProjects\\Runner_Java_Cambier\\img\\desert.png"));
+        this.statThing1 = new staticThing(0,0,new ImageView("C:\\Users\\Ulysse Cambier\\IdeaProjects\\Runner_Java_Cambier\\img\\desert.png"));
+        this.statThing2 = new staticThing(0,800,new ImageView("C:\\Users\\Ulysse Cambier\\IdeaProjects\\Runner_Java_Cambier\\img\\desert.png"));
         g.getChildren().add(this.statThing1.getImgView());
         g.getChildren().add(this.statThing2.getImgView());
         g.getChildren().add(sprite);
