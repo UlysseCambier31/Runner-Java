@@ -1,5 +1,6 @@
 // add any usefull package line
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
@@ -17,6 +18,15 @@ public class Main extends Application{
         GameScene scene = new GameScene(root,MainCamera);
         primaryStage.setScene(scene);
         primaryStage.show();
+        AnimationTimer timer = new AnimationTimer() {
+            @Override
+            public void handle(long time) {
+                scene.getHeros().update(time);
+                MainCamera.update(time,scene.getHeros());
+                scene.update(time);
+            }
+        };
+        timer.start();
     }
     public static void main(String[] args) {
         launch(args);

@@ -24,7 +24,7 @@ abstract class AnimatedThing {
     }
 
     public void setX(double x) {
-        this.x = x;
+        imgView.setX(x);
     }
 
     public double getY() {
@@ -32,7 +32,7 @@ abstract class AnimatedThing {
     }
 
     public void setY(double y) {
-        this.y = y;
+        imgView.setX(y);
     }
 
     public ImageView getImgView() {

@@ -16,6 +16,7 @@ public class Hero extends AnimatedThing {
         subindex++;
         if (subindex>frameduration) {subindex=0;index++;}
         if (index>maxindex) index=0;
-        this.getImgView().setViewport(new Rectangle2D(0+(85*(index%6)),0,85,100));
+        imgView.setViewport(new Rectangle2D(0+(85*(index%6)),0,85,100));
+        this.setX(x++);
     }
 }

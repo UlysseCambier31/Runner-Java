@@ -12,7 +12,7 @@ public class GameScene extends Scene {
     private Camera MainCamera;
     private staticThing statThing1, statThing2;
     private int numberOfLives;
-
+    private Hero heros;
     public Camera getMainCamera() {
         return MainCamera;
     }
@@ -28,7 +28,7 @@ public class GameScene extends Scene {
 
         Image spriteSheet = new Image("C:\\Users\\Ulysse Cambier\\IdeaProjects\\Runner_Java_Cambier\\img\\heros.png");
         ImageView sprite = new ImageView(spriteSheet);
-        Hero heros = new Hero(200,220,sprite,0);
+        heros = new Hero(200,220,sprite,0);
 
         Image lifespritesheet = new Image("C:\\Users\\Ulysse Cambier\\IdeaProjects\\Runner_Java_Cambier\\img\\life.png");
         ImageView lifesprite = new ImageView(lifespritesheet);
@@ -43,14 +43,8 @@ public class GameScene extends Scene {
         g.getChildren().add(lifesprite);
         g.getChildren().add(heros.getImgView());
         this.numberOfLives = 3;
-        AnimationTimer timer = new AnimationTimer() {
-            @Override
-            public void handle(long time) {
-                heros.update(time);
-                mainCamera.update(time,heros);
-            }
-        };
-        timer.start();
+
+
     }
 
 
@@ -77,5 +71,11 @@ public class GameScene extends Scene {
     public GameScene(Parent parent, double v, double v1, boolean b, SceneAntialiasing sceneAntialiasing, Camera mainCamera) {
         super(parent, v, v1, b, sceneAntialiasing);
         this.MainCamera = mainCamera;
+    }
+
+    public Hero getHeros() {
+        return heros;
+    }
+    public  void update(long time){
     }
 }
