@@ -1,14 +1,16 @@
 import javafx.scene.image.ImageView;
 
 abstract class AnimatedThing {
-    private double x;
-    private double y;
-    private ImageView imgView;
-    private int attitude;
-    private int index;
-    private double frameduration;
-    private int maxindex;
-    private double winSizeX,winSizeY;
+    protected double x;
+    protected double y;
+    protected ImageView imgView;
+    protected int attitude;
+    protected int index;
+    protected double frameduration;
+    protected int maxindex;
+    protected int subindex;
+    protected int maxsubindex;
+    protected double winSizeX,winSizeY;
 
     public AnimatedThing(double x, double y, ImageView imgView, int attitude) {
         this.x = x;
