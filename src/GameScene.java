@@ -13,6 +13,8 @@ public class GameScene extends Scene {
     private staticThing statThing1, statThing2;
     private int numberOfLives;
     private Hero heros;
+    private String syspath = System.getProperty("user.dir");
+    private double x=500;
     public Camera getMainCamera() {
         return MainCamera;
     }
@@ -26,18 +28,18 @@ public class GameScene extends Scene {
         super(g,600,400);
         this.MainCamera = mainCamera;
 
-        Image spriteSheet = new Image("C:\\Users\\Ulysse Cambier\\IdeaProjects\\Runner_Java_Cambier\\img\\heros.png");
+        Image spriteSheet = new Image(syspath+"\\img\\heros.png");
         ImageView sprite = new ImageView(spriteSheet);
         heros = new Hero(200,220,sprite,0);
 
-        Image lifespritesheet = new Image("C:\\Users\\Ulysse Cambier\\IdeaProjects\\Runner_Java_Cambier\\img\\life.png");
+        Image lifespritesheet = new Image(syspath+"\\img\\life.png");
         ImageView lifesprite = new ImageView(lifespritesheet);
         lifesprite.setViewport(new Rectangle2D(0,0,60,60));
         lifesprite.setX(20);
         lifesprite.setY(20);
 
-        this.statThing1 = new staticThing(0,0,new ImageView("C:\\Users\\Ulysse Cambier\\IdeaProjects\\Runner_Java_Cambier\\img\\desert.png"));
-        this.statThing2 = new staticThing(0,800,new ImageView("C:\\Users\\Ulysse Cambier\\IdeaProjects\\Runner_Java_Cambier\\img\\desert.png"));
+        this.statThing1 = new staticThing(0,0,new ImageView(syspath+"\\img\\desert.png"));
+        this.statThing2 = new staticThing(0,800,new ImageView(syspath+"\\img\\desert.png"));
         g.getChildren().add(this.statThing1.getImgView());
         g.getChildren().add(this.statThing2.getImgView());
         g.getChildren().add(lifesprite);
@@ -76,6 +78,9 @@ public class GameScene extends Scene {
     public Hero getHeros() {
         return heros;
     }
-    public  void update(long time){
+    public  void update(long time,Camera cam){
+        x = (x + cam.getVx() * time) % 800;
+        statThing1.getImgView().setViewport(new Rectangle2D(x, 0, 800 - x, 400));
+        statThing2.getImgView().setX(800 - x);
     }
 }

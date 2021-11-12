@@ -21,9 +21,9 @@ public class Main extends Application{
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long time) {
-                scene.getHeros().update(time);
+                scene.getHeros().update(time,MainCamera);
                 MainCamera.update(time,scene.getHeros());
-                scene.update(time);
+                scene.update(time,MainCamera);
             }
         };
         timer.start();
