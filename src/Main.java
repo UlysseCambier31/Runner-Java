@@ -35,7 +35,6 @@ public class Main extends Application{
         };
         timer.start();
         scene.setOnMouseClicked( (event)->{
-            System.out.println("Jump");
             scene.getHeros().jump();
         });
     }

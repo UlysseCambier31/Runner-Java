@@ -26,9 +26,7 @@ public class GameScene extends Scene {
     private String syspath = System.getProperty("user.dir");
     private double x=500;
     private int subindex=0;
-    private int minspawnduration=50;
-    private int indexpois = 0;
-    private int minspawnindexpois = 5; // Un poisson ne spawnera que tous les 5 enemis .
+    private int minspawnduration=20;
     public Camera getMainCamera() {
         return MainCamera;
     }
@@ -103,9 +101,10 @@ public class GameScene extends Scene {
         return heros;
     }
     public  void update(long time,Camera cam){
-        x = (x + cam.getVx()*16*(Math.pow(10,-3)*5)) % 800;
+        x = (x + cam.getVx()*16*(Math.pow(10,-3)*(2+cam.getAcceleration()))) % 800;
         statThing1.getImgView().setViewport(new Rectangle2D(x, 0, 800 - x, 400));
         statThing2.getImgView().setX(800 - x);
+        cam.setAcceleration(cam.getAcceleration()+0.001);
     }
     public void enemiSpwaner(long time, Group g,Camera cam) {
         subindex++;
@@ -116,13 +115,12 @@ public class GameScene extends Scene {
             ImageView enemisprite = new ImageView(enemispritesheet);
             // On randomise l'apparition;
             if (random == 1) {
-                indexpois++;
                 double ytoset = 220;
                 //On randomise le type d'enemi
                 int enemiType = new Random().nextInt(4);
                 // certains enemis comme type 2 et type 3 .resp. poissons et trucs dans les arbres nécessitent l'utilisation d'un obet de décors
                 // pont ou arbre.
-                if (enemiType == 2 && indexpois==5) {
+                if (enemiType == 2) {
                     ytoset = 400;// the fish as offset as it comes from the ground and it is definitely more complicated as fish does not live in the ground.....
                     //Ajout du pont
                     Image bridgeImg = new Image(syspath + "\\img\\bridge.png");
@@ -137,12 +135,8 @@ public class GameScene extends Scene {
                     enemis.add(new Enemi(heros.getX() + 600, 20, tree, 5));
                     g.getChildren().add(enemis.get(enemis.size() - 1).getImgView());
                 }
-                if (enemiType==2 && indexpois!=5){
-                    enemiType=0;
-                }
                 enemis.add(new Enemi(heros.getX() + 600, ytoset, enemisprite, enemiType));
                 g.getChildren().add(enemis.get(enemis.size() - 1).getImgView());
-                if (indexpois==minspawnindexpois) indexpois=0;
             }
             subindex=0;
         }

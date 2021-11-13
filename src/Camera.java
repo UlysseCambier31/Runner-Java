@@ -3,6 +3,7 @@ public class Camera {
     private double y;
     private double v_x;
     private double v_y;
+    private double acceleration;
 
 
     public double getX() {
@@ -21,6 +22,14 @@ public class Camera {
         this.y = y;
     }
 
+    public double getAcceleration() {
+        return acceleration;
+    }
+
+    public void setAcceleration(double acceleration) {
+        this.acceleration = acceleration;
+    }
+
     public double getVx(){return v_x;}
 
 
@@ -29,6 +38,7 @@ public class Camera {
         this.y = y;
         this.v_x = 0;
         this.v_y=0;
+        this.acceleration = 3;
     }
 
     @Override

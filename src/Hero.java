@@ -18,7 +18,9 @@ public class Hero extends AnimatedThing {
         this.attitude=0;
     }
     public void jump() {
-        attitude=1;
+        if (attitude==0) {
+            attitude = 1;
+        }
     }
     public void update(long time,Camera cam){
         subindex++;
