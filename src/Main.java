@@ -1,4 +1,7 @@
-// add any usefull package line
+/*********************************
+ *  CAMBIER ULYSSE @ENSEA 2021  *
+ * ******************************
+ */
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -24,6 +27,10 @@ public class Main extends Application{
                 scene.getHeros().update(time,MainCamera);
                 MainCamera.update(time,scene.getHeros());
                 scene.update(time,MainCamera);
+                for (Enemi enemi : scene.getEnemisArray()) {
+                    enemi.update(time, MainCamera);
+                }
+                scene.enemiSpwaner(time,root,MainCamera);
             }
         };
         timer.start();

@@ -1,3 +1,7 @@
+/*********************************
+ *  CAMBIER ULYSSE @ENSEA 2021  *
+ * ******************************
+ */
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
 
@@ -24,7 +28,7 @@ public class Hero extends AnimatedThing {
             imgView.setViewport(new Rectangle2D(0 + (85 * (index % 6)), 0, 85, 100));
         } else if (attitude==1) {
             if (y > 10) {
-                y -=5 ;
+                y -=7 ;
                 imgView.setViewport(new Rectangle2D(0, 160, 85, 100));
             } else {
                 attitude=2;
@@ -32,14 +36,14 @@ public class Hero extends AnimatedThing {
         }
         else if (attitude==2) {
             if (y < 219) {
-                y +=5;
+                y +=7;
                 imgView.setViewport(new Rectangle2D(85, 160, 85, 100));
             } else {
                 attitude = 0;
             }
         }
         x++;
-        imgView.setY(y-cam.getY());
+        imgView.setY(y); //imgView.setY(y-cam.getY()); l'équilibre du ressort n'est pas bon... à faire.
         imgView.setX(x-cam.getX());
     }
 }

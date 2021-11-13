@@ -1,3 +1,8 @@
+/*********************************
+ *  CAMBIER ULYSSE @ENSEA 2021  *
+ * ******************************
+ */
+
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
@@ -8,11 +13,16 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Paint;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class GameScene extends Scene {
     private Camera MainCamera;
     private staticThing statThing1, statThing2;
     private int numberOfLives;
     private Hero heros;
+    private List<Enemi> enemis = new ArrayList<Enemi>();
     private String syspath = System.getProperty("user.dir");
     private double x=500;
     public Camera getMainCamera() {
@@ -31,6 +41,10 @@ public class GameScene extends Scene {
         Image spriteSheet = new Image(syspath+"\\img\\heros.png");
         ImageView sprite = new ImageView(spriteSheet);
         heros = new Hero(200,220,sprite,0);
+
+        Image enemispritesheet = new Image(syspath+"\\img\\crab.png");
+        ImageView enemisprite = new ImageView(enemispritesheet);
+        enemis.add(new Enemi(200,500,enemisprite,0));
 
         Image lifespritesheet = new Image(syspath+"\\img\\life.png");
         ImageView lifesprite = new ImageView(lifespritesheet);
@@ -55,6 +69,10 @@ public class GameScene extends Scene {
         this.MainCamera = mainCamera;
     }
 
+    public List<Enemi> getEnemisArray() {
+        return enemis;
+    }
+
     public GameScene(Parent parent, Paint paint, Camera mainCamera) {
         super(parent, paint);
         this.MainCamera = mainCamera;
@@ -74,7 +92,6 @@ public class GameScene extends Scene {
         super(parent, v, v1, b, sceneAntialiasing);
         this.MainCamera = mainCamera;
     }
-
     public Hero getHeros() {
         return heros;
     }
@@ -82,5 +99,21 @@ public class GameScene extends Scene {
         x = (x + cam.getVx()*16*(Math.pow(10,-3)*10)) % 800;
         statThing1.getImgView().setViewport(new Rectangle2D(x, 0, 800 - x, 400));
         statThing2.getImgView().setX(800 - x);
+    }
+    public void enemiSpwaner(long time, Group g,Camera cam) {
+        int random = new Random().nextInt(10);
+        if (random == 1) {
+            double ytoset=220;
+            int enemiType = new Random().nextInt(4);
+            if (enemiType==2){
+                ytoset = 400;// the fish as offset as it comes from the ground.
+            } else if (enemiType==3){
+                ytoset = 20;// the thing in a tree is more complicated as it need a tree
+                enemis.add(new Enemi(600,20,enemis.get(0).getImgView(),5));
+                g.getChildren().add(enemis.get(enemis.size()-1).getImgView());
+            }
+            enemis.add( new Enemi(600,ytoset,enemis.get(0).getImgView(),enemiType));
+            g.getChildren().add(enemis.get(enemis.size()-1).getImgView());
+        }
     }
 }

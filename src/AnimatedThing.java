@@ -1,3 +1,7 @@
+/*********************************
+ *  CAMBIER ULYSSE @ENSEA 2021  *
+ * ******************************
+ */
 import javafx.scene.image.ImageView;
 
 abstract class AnimatedThing {
