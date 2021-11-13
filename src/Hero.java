@@ -177,15 +177,25 @@ public class Hero extends AnimatedThing {
             if(enemi.getEnemiType()<4) {
                 if(collision(scene.getHeros(),enemi)&&!isinvincible)
                 {
-                    stamina = 1;
-                    isinvincible = true;
-                    if (scene.getNumberOfLives()>0) {
-                        scene.setNumberOfLives(scene.getNumberOfLives()-1);
+                    if (enemi.getEnemiType()==-1){
+                        if (stamina<900) stamina+=100;
+                        if (scene.getNumberOfLives() < 3) {
+                            scene.setNumberOfLives(scene.getNumberOfLives() +1);
+                        }
+                        scene.setScore(scene.getScore()+500);
+                        enemi.setEnemiType(6);
                     }
-                    if (scene.getNumberOfLives()==0){
-                        attitude =7;
-                    }else {
-                        attitude= 3;
+                    else {
+                        stamina = 1;
+                        isinvincible = true;
+                        if (scene.getNumberOfLives() > 0) {
+                            scene.setNumberOfLives(scene.getNumberOfLives() - 1);
+                        }
+                        if (scene.getNumberOfLives() == 0) {
+                            attitude = 7;
+                        } else {
+                            attitude = 3;
+                        }
                     }
                 } else if(collision(scene.getHeros(),enemi)&&isinvincible){
                     enemi.setEnemiType(6);

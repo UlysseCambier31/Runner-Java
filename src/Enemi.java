@@ -32,8 +32,12 @@ public class Enemi extends AnimatedThing{
         subindex++;
         if (subindex>frameduration) {subindex=0;index++;}
         if (index>maxindex) index=0;
+        //Anneaux - Pas un enemi mais bon...
+        if (EnemiType==-1) {
+            imgView.setViewport(new Rectangle2D(0 + (64 * (index % 10)), 0, 64, 64));
+        }
         //crab Enemi
-        if (EnemiType==0) {
+        else if (EnemiType==0) {
             imgView.setViewport(new Rectangle2D(0 + (85 * (index % 3)), 0, 85, 100));
         }
         //Spikes

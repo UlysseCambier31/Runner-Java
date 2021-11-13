@@ -126,6 +126,15 @@ public class GameScene extends Scene {
         super(parent, v, v1, b, sceneAntialiasing);
         this.MainCamera = mainCamera;
     }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
     public Hero getHeros() {
         return heros;
     }
@@ -174,7 +183,7 @@ public class GameScene extends Scene {
             if (random == 1) {
                 double ytoset = 220;
                 //On randomise le type d'enemi
-                int enemiType = new Random().nextInt(4);
+                int enemiType = new Random().nextInt(5);
                 // certains enemis comme type 2 et type 3 .resp. poissons et trucs dans les arbres nécessitent l'utilisation d'un obet de décors
                 // pont ou arbre.
                 if (enemiType == 2) {
@@ -191,6 +200,13 @@ public class GameScene extends Scene {
                     ImageView tree = new ImageView(treesheet);
                     enemis.add(new Enemi(heros.getX() + 600, 20, tree, 5));
                     g.getChildren().add(enemis.get(enemis.size() - 1).getImgView());
+                }   else if (enemiType == 4) {
+                    ytoset = new Random().nextInt(200);// the rings
+                    ytoset += 20;
+                    //Changement de la feuille de sprite pour celle des anneaux !
+                     enemispritesheet = new Image(syspath + "\\img\\anneaux.png");
+                     enemisprite = new ImageView(enemispritesheet);
+                    enemiType = -1;
                 }
                 enemis.add(new Enemi(heros.getX() + 600, ytoset, enemisprite, enemiType));
                 g.getChildren().add(enemis.get(enemis.size() - 1).getImgView());
