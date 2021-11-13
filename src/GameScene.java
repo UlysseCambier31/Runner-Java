@@ -27,6 +27,8 @@ public class GameScene extends Scene {
     private double x=500;
     private int subindex=0;
     private int minspawnduration=10;
+    private int indexpois = 0;
+    private int minspawnindexpois = 5; // Un poisson ne spawnera que tous les 5 enemis .
     public Camera getMainCamera() {
         return MainCamera;
     }
@@ -71,6 +73,10 @@ public class GameScene extends Scene {
         this.MainCamera = mainCamera;
     }
 
+
+
+
+
     public List<Enemi> getEnemisArray() {
         return enemis;
     }
@@ -89,7 +95,6 @@ public class GameScene extends Scene {
         super(parent, v, v1, b);
         this.MainCamera = mainCamera;
     }
-
     public GameScene(Parent parent, double v, double v1, boolean b, SceneAntialiasing sceneAntialiasing, Camera mainCamera) {
         super(parent, v, v1, b, sceneAntialiasing);
         this.MainCamera = mainCamera;
@@ -109,19 +114,28 @@ public class GameScene extends Scene {
             Image enemispritesheet = new Image(syspath + "\\img\\crab.png");
             ImageView enemisprite = new ImageView(enemispritesheet);
             if (random == 1) {
+                indexpois++;
                 double ytoset = 220;
                 int enemiType = new Random().nextInt(4);
-                if (enemiType == 2) {
-                    ytoset = 400;// the fish as offset as it comes from the ground.
+                if (enemiType == 2 && indexpois==5) {
+                    ytoset = 400;// the fish as offset as it comes from the ground and it is definitely more complicated as fish does not live in the ground.....
+                    Image bridgeImg = new Image(syspath + "\\img\\bridge.png");
+                    ImageView bridge = new ImageView(bridgeImg);
+                    enemis.add(new Enemi(heros.getX() + 600, 0, bridge, 8));
+                    g.getChildren().add(enemis.get(enemis.size() - 1).getImgView());
                 } else if (enemiType == 3) {
                     ytoset = 20;// the thing in a tree is more complicated as it need a tree
-                    Image enemispritesheet2 = new Image(syspath + "\\img\\crab.png");
-                    ImageView enemisprite2 = new ImageView(enemispritesheet2);
-                    enemis.add(new Enemi(heros.getX() + 600, 20, enemisprite2, 5));
+                    Image treesheet = new Image(syspath + "\\img\\crab.png");
+                    ImageView tree = new ImageView(treesheet);
+                    enemis.add(new Enemi(heros.getX() + 600, 20, tree, 5));
                     g.getChildren().add(enemis.get(enemis.size() - 1).getImgView());
+                }
+                if (enemiType==2 && indexpois!=5){
+                    enemiType=0;
                 }
                 enemis.add(new Enemi(heros.getX() + 600, ytoset, enemisprite, enemiType));
                 g.getChildren().add(enemis.get(enemis.size() - 1).getImgView());
+                if (indexpois==minspawnindexpois) indexpois=0;
             }
             subindex=0;
         }

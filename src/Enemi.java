@@ -4,6 +4,7 @@
  */
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
+import org.w3c.dom.css.Rect;
 
 public class Enemi extends AnimatedThing{
     int EnemiType;
@@ -66,6 +67,9 @@ public class Enemi extends AnimatedThing{
         //Explosion End
         if (EnemiType==7) {
             imgView.setViewport(new Rectangle2D(0 + (85 * 5), 160*3, 85, 100));
+        }
+        if (EnemiType==8){
+            imgView.setViewport(new Rectangle2D(0,0,124,400));
         }
         x = (x - cam.getVx()*16*(Math.pow(10,-3)*5));
         imgView.setY(y);
