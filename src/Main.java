@@ -16,6 +16,8 @@ import javafx.stage.Stage;
 
 public class Main extends Application{
     int step = 0;
+    int waittospawn = 0;
+    int waittospawnmax = 200;
     public void start(Stage primaryStage){
         primaryStage.setTitle("Demo");
         Group root = new Group();
@@ -26,13 +28,16 @@ public class Main extends Application{
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long time) {
+                waittospawn++;
                 scene.getHeros().update(time,MainCamera,scene);
                 MainCamera.update(time,scene.getHeros());
                 scene.update(time,MainCamera);
                 for (Enemi enemi : scene.getEnemisArray()) {
                     enemi.update(time, MainCamera,scene);
                 }
-                scene.enemiSpwaner(time,root,MainCamera);
+                if (waittospawn>waittospawnmax) {
+                    scene.enemiSpwaner(time, root, MainCamera);
+                }
             }
         };
         scene.setOnMouseClicked( (event)->{

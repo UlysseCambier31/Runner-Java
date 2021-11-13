@@ -24,7 +24,11 @@ public class Enemi extends AnimatedThing{
         return EnemiType;
     }
 
-    public void update(long time, Camera cam,GameScene scene){
+    public void setEnemiType(int enemiType) {
+        EnemiType = enemiType;
+    }
+
+    public void update(long time, Camera cam, GameScene scene){
         subindex++;
         if (subindex>frameduration) {subindex=0;index++;}
         if (index>maxindex) index=0;

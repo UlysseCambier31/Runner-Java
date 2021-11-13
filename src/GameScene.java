@@ -87,8 +87,13 @@ public class GameScene extends Scene {
     }
 
 
+    public int getNumberOfLives() {
+        return numberOfLives;
+    }
 
-
+    public void setNumberOfLives(int numberOfLives) {
+        this.numberOfLives = numberOfLives;
+    }
 
     public List<Enemi> getEnemisArray() {
         return enemis;
