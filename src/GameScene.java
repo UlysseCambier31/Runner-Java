@@ -25,6 +25,8 @@ public class GameScene extends Scene {
     private List<Enemi> enemis = new ArrayList<Enemi>();
     private String syspath = System.getProperty("user.dir");
     private double x=500;
+    private int subindex=0;
+    private int minspawnduration=10;
     public Camera getMainCamera() {
         return MainCamera;
     }
@@ -101,23 +103,27 @@ public class GameScene extends Scene {
         statThing2.getImgView().setX(800 - x);
     }
     public void enemiSpwaner(long time, Group g,Camera cam) {
-        int random = new Random().nextInt(100);
-        Image enemispritesheet = new Image(syspath+"\\img\\crab.png");
-        ImageView enemisprite = new ImageView(enemispritesheet);
-        if (random == 1) {
-            double ytoset=220;
-            int enemiType = new Random().nextInt(4);
-            if (enemiType==2){
-                ytoset = 400;// the fish as offset as it comes from the ground.
-            } else if (enemiType==3){
-                ytoset = 20;// the thing in a tree is more complicated as it need a tree
-                Image enemispritesheet2 = new Image(syspath+"\\img\\crab.png");
-                ImageView enemisprite2 = new ImageView(enemispritesheet2);
-                enemis.add(new Enemi(heros.getX()+600,20,enemisprite2,5));
-                g.getChildren().add(enemis.get(enemis.size()-1).getImgView());
+        subindex++;
+        if (subindex==minspawnduration) {
+            int random = new Random().nextInt(5);
+            Image enemispritesheet = new Image(syspath + "\\img\\crab.png");
+            ImageView enemisprite = new ImageView(enemispritesheet);
+            if (random == 1) {
+                double ytoset = 220;
+                int enemiType = new Random().nextInt(4);
+                if (enemiType == 2) {
+                    ytoset = 400;// the fish as offset as it comes from the ground.
+                } else if (enemiType == 3) {
+                    ytoset = 20;// the thing in a tree is more complicated as it need a tree
+                    Image enemispritesheet2 = new Image(syspath + "\\img\\crab.png");
+                    ImageView enemisprite2 = new ImageView(enemispritesheet2);
+                    enemis.add(new Enemi(heros.getX() + 600, 20, enemisprite2, 5));
+                    g.getChildren().add(enemis.get(enemis.size() - 1).getImgView());
+                }
+                enemis.add(new Enemi(heros.getX() + 600, ytoset, enemisprite, enemiType));
+                g.getChildren().add(enemis.get(enemis.size() - 1).getImgView());
             }
-            enemis.add( new Enemi(heros.getX()+600,ytoset,enemisprite,enemiType));
-            g.getChildren().add(enemis.get(enemis.size()-1).getImgView());
+            subindex=0;
         }
     }
 }
