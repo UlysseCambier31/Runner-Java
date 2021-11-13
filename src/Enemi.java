@@ -34,7 +34,7 @@ public class Enemi extends AnimatedThing{
         //Fish Up
         else if (EnemiType==2) {
             if (y > 10) {
-                y -=7 ;
+                y -=5 ;
                 imgView.setViewport(new Rectangle2D(0, 160, 85, 100));
             } else {
                 EnemiType=4;
@@ -47,7 +47,7 @@ public class Enemi extends AnimatedThing{
         //Fish Down
         else if (EnemiType==4) {
             if (y < 500) {
-                y +=7;
+                y +=5;
                 imgView.setViewport(new Rectangle2D(85, 160, 85, 100));
             } else {
                 EnemiType=0;

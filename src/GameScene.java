@@ -26,7 +26,7 @@ public class GameScene extends Scene {
     private String syspath = System.getProperty("user.dir");
     private double x=500;
     private int subindex=0;
-    private int minspawnduration=10;
+    private int minspawnduration=50;
     private int indexpois = 0;
     private int minspawnindexpois = 5; // Un poisson ne spawnera que tous les 5 enemis .
     public Camera getMainCamera() {
@@ -110,21 +110,28 @@ public class GameScene extends Scene {
     public void enemiSpwaner(long time, Group g,Camera cam) {
         subindex++;
         if (subindex==minspawnduration) {
+            // On crée un enemie avec sa propre spritesheet
             int random = new Random().nextInt(5);
             Image enemispritesheet = new Image(syspath + "\\img\\crab.png");
             ImageView enemisprite = new ImageView(enemispritesheet);
+            // On randomise l'apparition;
             if (random == 1) {
                 indexpois++;
                 double ytoset = 220;
+                //On randomise le type d'enemi
                 int enemiType = new Random().nextInt(4);
+                // certains enemis comme type 2 et type 3 .resp. poissons et trucs dans les arbres nécessitent l'utilisation d'un obet de décors
+                // pont ou arbre.
                 if (enemiType == 2 && indexpois==5) {
                     ytoset = 400;// the fish as offset as it comes from the ground and it is definitely more complicated as fish does not live in the ground.....
+                    //Ajout du pont
                     Image bridgeImg = new Image(syspath + "\\img\\bridge.png");
                     ImageView bridge = new ImageView(bridgeImg);
                     enemis.add(new Enemi(heros.getX() + 600, 0, bridge, 8));
                     g.getChildren().add(enemis.get(enemis.size() - 1).getImgView());
                 } else if (enemiType == 3) {
                     ytoset = 20;// the thing in a tree is more complicated as it need a tree
+                    //Ajout de l'arbre
                     Image treesheet = new Image(syspath + "\\img\\crab.png");
                     ImageView tree = new ImageView(treesheet);
                     enemis.add(new Enemi(heros.getX() + 600, 20, tree, 5));

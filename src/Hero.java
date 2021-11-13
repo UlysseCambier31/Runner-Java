@@ -22,11 +22,11 @@ public class Hero extends AnimatedThing {
     }
     public void update(long time,Camera cam){
         subindex++;
-        if (subindex>frameduration) {subindex=0;index++;}
+        if (subindex>frameduration) {subindex=0;index++;} // réduction du temps frames
         if (index>maxindex) index=0;
         if (attitude==0) {
             imgView.setViewport(new Rectangle2D(0 + (85 * (index % 6)), 0, 85, 100));
-        } else if (attitude==1) {
+        } else if (attitude==1) { // Saut simplifié
             if (y > 10) {
                 y -=7 ;
                 imgView.setViewport(new Rectangle2D(0, 160, 85, 100));
@@ -34,7 +34,7 @@ public class Hero extends AnimatedThing {
                 attitude=2;
             }
         }
-        else if (attitude==2) {
+        else if (attitude==2) { // descente simplifiée
             if (y < 219) {
                 y +=7;
                 imgView.setViewport(new Rectangle2D(85, 160, 85, 100));
