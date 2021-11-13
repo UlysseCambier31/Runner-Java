@@ -71,7 +71,7 @@ public class Enemi extends AnimatedThing{
         if (EnemiType==8){
             imgView.setViewport(new Rectangle2D(0,0,124,400));
         }
-        x = (x - cam.getVx()*16*(Math.pow(10,-3)*5));
+        x = (x - cam.getVx()*16*(Math.pow(10,-3)*4));
         imgView.setY(y);
         imgView.setX(x-cam.getX());
     }
