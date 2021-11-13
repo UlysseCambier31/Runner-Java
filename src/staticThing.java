@@ -16,7 +16,7 @@ public class staticThing {
     }
 
     public void setX(double x) {
-        this.x = x;
+        this.imgView.setX(x);
     }
 
     public double getY() {
@@ -24,7 +24,7 @@ public class staticThing {
     }
 
     public void setY(double y) {
-        this.y = y;
+        this.imgView.setX(y);
     }
 
     public ImageView getImgView() {

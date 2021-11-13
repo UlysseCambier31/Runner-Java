@@ -38,7 +38,7 @@ public class Camera {
         this.y = y;
         this.v_x = 0;
         this.v_y=0;
-        this.acceleration = 3;
+        this.acceleration = 5;
     }
 
     @Override

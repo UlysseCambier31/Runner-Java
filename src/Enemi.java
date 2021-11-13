@@ -19,7 +19,12 @@ public class Enemi extends AnimatedThing{
         this.maxindex=5;
         this.EnemiType = EnemiType;
     }
-    public void update(long time, Camera cam){
+
+    public int getEnemiType() {
+        return EnemiType;
+    }
+
+    public void update(long time, Camera cam,GameScene scene){
         subindex++;
         if (subindex>frameduration) {subindex=0;index++;}
         if (index>maxindex) index=0;
@@ -68,10 +73,11 @@ public class Enemi extends AnimatedThing{
         if (EnemiType==7) {
             imgView.setViewport(new Rectangle2D(0 + (85 * 5), 160*3, 85, 100));
         }
+        //pont
         if (EnemiType==8){
             imgView.setViewport(new Rectangle2D(0,0,124,400));
         }
-        x = (x - cam.getVx()*16*(Math.pow(10,-3)*(1+cam.getAcceleration())));
+        x = (x - cam.getVx()*16*(Math.pow(10,-3)*(1+cam.getAcceleration()*(1+(scene.getHeros().getSuperspeedmultiplier()*2)))));
         imgView.setY(y);
         imgView.setX(x-cam.getX());
     }

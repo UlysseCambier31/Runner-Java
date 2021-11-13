@@ -9,8 +9,10 @@ import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
+import javafx.scene.effect.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import org.w3c.dom.css.Rect;
 
@@ -20,7 +22,7 @@ import java.util.Random;
 
 public class GameScene extends Scene {
     private Camera MainCamera;
-    private staticThing statThing1, statThing2;
+    private staticThing statThing1, statThing2,startscreen;
     private int numberOfLives;
     private Hero heros;
     private List<Enemi> enemis = new ArrayList<Enemi>();
@@ -29,6 +31,7 @@ public class GameScene extends Scene {
     private int subindex=0;
     private int minspawnduration=20;
     private ImageView lifesprite;
+    private  ImageView speedsprite;
 
     public Camera getMainCamera() {
         return MainCamera;
@@ -45,7 +48,7 @@ public class GameScene extends Scene {
 
         Image spriteSheet = new Image(syspath+"\\img\\heros.png");
         ImageView sprite = new ImageView(spriteSheet);
-        heros = new Hero(200,220,sprite,0);
+        heros = new Hero(200,220,sprite,5);
 
         Image enemispritesheet = new Image(syspath+"\\img\\crab.png");
         ImageView enemisprite = new ImageView(enemispritesheet);
@@ -57,12 +60,21 @@ public class GameScene extends Scene {
         lifesprite.setX(20);
         lifesprite.setY(20);
 
+        Image speedspritesheet = new Image(syspath+"\\img\\heros.png");
+        speedsprite = new ImageView(speedspritesheet);
+        speedsprite.setViewport(new Rectangle2D(10, 160*2+15, 68, 100));
+        speedsprite.setX(80);
+        speedsprite.setY(0);
+
         this.statThing1 = new staticThing(0,0,new ImageView(syspath+"\\img\\desert.png"));
         this.statThing2 = new staticThing(0,800,new ImageView(syspath+"\\img\\desert.png"));
+        this.startscreen = new staticThing(20,0,new ImageView(syspath+"\\img\\startscreen.png"));
         g.getChildren().add(this.statThing1.getImgView());
         g.getChildren().add(this.statThing2.getImgView());
         g.getChildren().add(lifesprite);
+        g.getChildren().add(speedsprite);
         g.getChildren().add(heros.getImgView());
+        g.getChildren().add(this.startscreen.getImgView());
         this.numberOfLives = 3;
 
 
@@ -103,8 +115,11 @@ public class GameScene extends Scene {
     public Hero getHeros() {
         return heros;
     }
+    public void HideStartScreen() {
+        startscreen.getImgView().setX(600);
+    }
     public  void update(long time,Camera cam){
-        x = (x + cam.getVx()*16*(Math.pow(10,-3)*(2+cam.getAcceleration()))) % 800;
+        x = (x + cam.getVx()*16*(Math.pow(10,-3)*(2+cam.getAcceleration()*(1+(heros.getSuperspeedmultiplier()*2))))) % 800;
         statThing1.getImgView().setViewport(new Rectangle2D(x, 0, 800 - x, 400));
         statThing2.getImgView().setX(800 - x);
         if (numberOfLives>0){
@@ -118,6 +133,10 @@ public class GameScene extends Scene {
             lifesprite.setViewport(new Rectangle2D(120,0,60,60));
         } else if (numberOfLives==0){
             cam.setAcceleration(0);
+        }
+        speedsprite.setViewport(new Rectangle2D(10, 160*2+15, 68*((double)heros.getStamina()/1000), 100));
+        if (heros.getStamina()==1000){
+            speedsprite.setViewport(new Rectangle2D(5+(85 * 4), (160*2)+15, 85, 100));
         }
     }
     public void enemiSpwaner(long time, Group g,Camera cam) {
