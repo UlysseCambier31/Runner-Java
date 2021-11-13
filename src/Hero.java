@@ -102,14 +102,14 @@ public class Hero extends AnimatedThing {
         } else if (attitude==3){ //touché saut
             if (y > 10) {
                 y -=5 ;
-                imgView.setViewport(new Rectangle2D(85*2+(85*(index%2)), 160, 85, 100));
+                imgView.setViewport(new Rectangle2D(85*2, 160+(100*(index%2)), 85, 90));
             } else {
                 attitude=4;
             }
         } else if (attitude==4){ //touché saut bas
             if (y < 219) {
                 y +=5;
-                imgView.setViewport(new Rectangle2D(85*2+(85*(index%2)), 160, 85, 100));
+                imgView.setViewport(new Rectangle2D(85*2, 160+(100*(index%2)), 85, 90));
             } else {
                 attitude = 0;
                 isinvincible= false;
@@ -118,6 +118,25 @@ public class Hero extends AnimatedThing {
             imgView.setViewport(new Rectangle2D(0 + (85 * (index % 4)), 160*2, 85, 100));
         } else if (attitude==6){ //superspeed
             imgView.setViewport(new Rectangle2D(0 + (85 * 4)+(85*(index%2)), 160*2, 85, 100));
+        }else if (attitude==7){ //Mort saut
+            if (y > 10) {
+                y -=5 ;
+                imgView.setViewport(new Rectangle2D(85*2, 160+(100*(index%2)), 85, 90));
+            } else {
+                attitude=8;
+            }
+        } else if (attitude==8){ //Mort saut bas
+            if (y < 219) {
+                y +=5;
+                imgView.setViewport(new Rectangle2D(85*2, 160+(100*(index%2)), 85, 90));
+            } else {
+                attitude = 9;
+            }
+        }else if (attitude==9){ //Mort Animée
+            imgView.setViewport(new Rectangle2D(85*2+(85*((index%3))), 160, 85, 100));
+            if (index==3) attitude=10;
+        } else if (attitude==10){ //Mort
+            imgView.setViewport(new Rectangle2D(85 * 5, 160, 85, 100));
         }
 
         if(superspeedstate==1) {
@@ -155,7 +174,7 @@ public class Hero extends AnimatedThing {
         imgView.setY(y); //imgView.setY(y-cam.getY()); l'équilibre du ressort n'est pas bon... à faire.
         imgView.setX(x-cam.getX());
         for (Enemi enemi:scene.getEnemisArray()) {
-            if(enemi.getEnemiType()<3) {
+            if(enemi.getEnemiType()<4) {
                 if(collision(scene.getHeros(),enemi)&&!isinvincible)
                 {
                     stamina = 1;
@@ -163,7 +182,11 @@ public class Hero extends AnimatedThing {
                     if (scene.getNumberOfLives()>0) {
                         scene.setNumberOfLives(scene.getNumberOfLives()-1);
                     }
-                    attitude= 3;
+                    if (scene.getNumberOfLives()==0){
+                        attitude =7;
+                    }else {
+                        attitude= 3;
+                    }
                 } else if(collision(scene.getHeros(),enemi)&&isinvincible){
                     enemi.setEnemiType(6);
                 }

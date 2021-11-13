@@ -137,6 +137,7 @@ public class GameScene extends Scene {
         } else if (numberOfLives==1) {
             lifesprite.setViewport(new Rectangle2D(120,0,60,60));
         } else if (numberOfLives==0){
+            lifesprite.setX(600);
             cam.setAcceleration(0);
         }
         speedsprite.setViewport(new Rectangle2D(10, 160*2+15, 68*((double)heros.getStamina()/1000), 100));
