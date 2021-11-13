@@ -12,6 +12,7 @@ import javafx.scene.SceneAntialiasing;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Paint;
+import org.w3c.dom.css.Rect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,8 @@ public class GameScene extends Scene {
     private double x=500;
     private int subindex=0;
     private int minspawnduration=20;
+    private ImageView lifesprite;
+
     public Camera getMainCamera() {
         return MainCamera;
     }
@@ -49,7 +52,7 @@ public class GameScene extends Scene {
         enemis.add(new Enemi(200,500,enemisprite,0));
 
         Image lifespritesheet = new Image(syspath+"\\img\\life.png");
-        ImageView lifesprite = new ImageView(lifespritesheet);
+        lifesprite = new ImageView(lifespritesheet);
         lifesprite.setViewport(new Rectangle2D(0,0,60,60));
         lifesprite.setX(20);
         lifesprite.setY(20);
@@ -104,7 +107,18 @@ public class GameScene extends Scene {
         x = (x + cam.getVx()*16*(Math.pow(10,-3)*(2+cam.getAcceleration()))) % 800;
         statThing1.getImgView().setViewport(new Rectangle2D(x, 0, 800 - x, 400));
         statThing2.getImgView().setX(800 - x);
-        cam.setAcceleration(cam.getAcceleration()+0.001);
+        if (numberOfLives>0){
+            cam.setAcceleration(cam.getAcceleration()+0.001);
+        }
+        if(numberOfLives==3){
+            lifesprite.setViewport(new Rectangle2D(0,0,60,60));
+        } else if (numberOfLives==2) {
+            lifesprite.setViewport(new Rectangle2D(60,0,60,60));
+        } else if (numberOfLives==1) {
+            lifesprite.setViewport(new Rectangle2D(120,0,60,60));
+        } else if (numberOfLives==0){
+            cam.setAcceleration(0);
+        }
     }
     public void enemiSpwaner(long time, Group g,Camera cam) {
         subindex++;

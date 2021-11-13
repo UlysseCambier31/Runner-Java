@@ -2,6 +2,7 @@
  *  CAMBIER ULYSSE @ENSEA 2021  *
  * ******************************
  */
+import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
 
 abstract class AnimatedThing {
@@ -22,7 +23,14 @@ abstract class AnimatedThing {
         this.imgView = imgView;
         this.attitude =attitude;
     }
-
+    public Rectangle2D getHitBox(){
+        return new javafx.geometry.Rectangle2D(
+                imgView.getViewport().getMinX(),
+                imgView.getViewport().getMinY(),
+                imgView.getViewport().getWidth(),
+                imgView.getViewport().getHeight()
+        ) ;
+    }
     public double getX() {
         return x;
     }

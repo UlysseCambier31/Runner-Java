@@ -13,7 +13,7 @@ public class Enemi extends AnimatedThing{
         imgView.setViewport(new Rectangle2D(20,0,65,100));
         imgView.setX(this.x);
         imgView.setY(this.y);
-        this.frameduration=4;
+        this.frameduration=8;
         this.index=0;
         this.subindex=0;
         this.maxindex=5;
@@ -29,7 +29,7 @@ public class Enemi extends AnimatedThing{
         }
         //Spikes
         else if (EnemiType==1) {
-            imgView.setViewport(new Rectangle2D(0+(85*3), 0, 85, 100));
+            imgView.setViewport(new Rectangle2D(0+(85*3)+(85*(index%3)), 0, 85, 100));
         }
         //Fish Up
         else if (EnemiType==2) {
