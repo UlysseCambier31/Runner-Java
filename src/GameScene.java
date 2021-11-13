@@ -14,6 +14,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import org.w3c.dom.css.Rect;
 
 import java.util.ArrayList;
@@ -32,6 +34,8 @@ public class GameScene extends Scene {
     private int minspawnduration=20;
     private ImageView lifesprite;
     private  ImageView speedsprite;
+    private int score;
+    private Text scoretext;
 
     public Camera getMainCamera() {
         return MainCamera;
@@ -45,26 +49,30 @@ public class GameScene extends Scene {
 
         super(g,600,400);
         this.MainCamera = mainCamera;
-
+        this.score=0;
         Image spriteSheet = new Image(syspath+"\\img\\heros.png");
         ImageView sprite = new ImageView(spriteSheet);
-        heros = new Hero(200,220,sprite,5);
+        this.heros = new Hero(200,220,sprite,5);
 
         Image enemispritesheet = new Image(syspath+"\\img\\crab.png");
         ImageView enemisprite = new ImageView(enemispritesheet);
-        enemis.add(new Enemi(200,500,enemisprite,0));
+        this.enemis.add(new Enemi(200,500,enemisprite,0));
 
         Image lifespritesheet = new Image(syspath+"\\img\\life.png");
-        lifesprite = new ImageView(lifespritesheet);
-        lifesprite.setViewport(new Rectangle2D(0,0,60,60));
-        lifesprite.setX(20);
-        lifesprite.setY(20);
+        this.lifesprite = new ImageView(lifespritesheet);
+        this.lifesprite.setViewport(new Rectangle2D(0,0,60,60));
+        this.lifesprite.setX(20);
+        this.lifesprite.setY(20);
 
         Image speedspritesheet = new Image(syspath+"\\img\\heros.png");
-        speedsprite = new ImageView(speedspritesheet);
-        speedsprite.setViewport(new Rectangle2D(10, 160*2+15, 68, 100));
-        speedsprite.setX(80);
-        speedsprite.setY(0);
+        this.speedsprite = new ImageView(speedspritesheet);
+        this.speedsprite.setViewport(new Rectangle2D(10, 160*2+15, 68, 100));
+        this.speedsprite.setX(80);
+        this.speedsprite.setY(0);
+
+        this.scoretext = new Text (200, 50, "");
+        this.scoretext.setFont(Font.loadFont("file:Fonts/NiseSegaSonic.ttf", 20));
+        this.scoretext.setFill(Color.YELLOW);
 
         this.statThing1 = new staticThing(0,0,new ImageView(syspath+"\\img\\desert.png"));
         this.statThing2 = new staticThing(0,800,new ImageView(syspath+"\\img\\desert.png"));
@@ -75,6 +83,7 @@ public class GameScene extends Scene {
         g.getChildren().add(speedsprite);
         g.getChildren().add(heros.getImgView());
         g.getChildren().add(this.startscreen.getImgView());
+        g.getChildren().add(this.scoretext);
         this.numberOfLives = 3;
 
 
@@ -129,6 +138,8 @@ public class GameScene extends Scene {
         statThing2.getImgView().setX(800 - x);
         if (numberOfLives>0){
             cam.setAcceleration(cam.getAcceleration()+0.001);
+            score = score +1+2*heros.getSuperspeedmultiplier();
+            scoretext.setText("Score : "+this.score);
         }
         if(numberOfLives==3){
             lifesprite.setViewport(new Rectangle2D(0,0,60,60));
@@ -144,6 +155,11 @@ public class GameScene extends Scene {
         if (heros.getStamina()==1000){
             speedsprite.setViewport(new Rectangle2D(5+(85 * 4), (160*2)+15, 85, 100));
         }
+    }
+    public void spawnGameOver() {
+        this.scoretext = new Text (200, 220, "GAME OVER");
+        this.scoretext.setFont(Font.loadFont("file:Fonts/NiseSegaSonic.ttf", 100));
+        this.scoretext.setFill(Color.RED);
     }
     public void enemiSpwaner(long time, Group g,Camera cam) {
         subindex++;

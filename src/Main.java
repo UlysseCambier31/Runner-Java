@@ -38,6 +38,11 @@ public class Main extends Application{
                 if (waittospawn>waittospawnmax) {
                     scene.enemiSpwaner(time, root, MainCamera);
                 }
+                if(scene.getNumberOfLives()==0&&step==1){
+                    scene.spawnGameOver();
+                    System.out.println("end");
+                    step = 2;
+                }
             }
         };
         scene.setOnMouseClicked( (event)->{
