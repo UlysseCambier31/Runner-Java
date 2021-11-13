@@ -39,8 +39,7 @@ public class Main extends Application{
                     scene.enemiSpwaner(time, root, MainCamera);
                 }
                 if(scene.getNumberOfLives()==0&&step==1){
-                    scene.spawnGameOver();
-                    System.out.println("end");
+                    scene.spawnGameOver(root);
                     step = 2;
                 }
             }

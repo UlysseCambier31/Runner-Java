@@ -156,10 +156,12 @@ public class GameScene extends Scene {
             speedsprite.setViewport(new Rectangle2D(5+(85 * 4), (160*2)+15, 85, 100));
         }
     }
-    public void spawnGameOver() {
-        this.scoretext = new Text (200, 220, "GAME OVER");
-        this.scoretext.setFont(Font.loadFont("file:Fonts/NiseSegaSonic.ttf", 100));
-        this.scoretext.setFill(Color.RED);
+    public void spawnGameOver(Group g) {
+        Text gameover = new Text (100, 150, "GAME \n OVER");
+        gameover.setFont(Font.loadFont("file:Fonts/NiseSegaSonic.ttf", 100));
+        gameover.setFill(Color.RED);
+        g.getChildren().add(gameover);
+
     }
     public void enemiSpwaner(long time, Group g,Camera cam) {
         subindex++;
