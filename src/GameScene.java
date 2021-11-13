@@ -96,7 +96,7 @@ public class GameScene extends Scene {
         return heros;
     }
     public  void update(long time,Camera cam){
-        x = (x + cam.getVx()*16*(Math.pow(10,-3)*10)) % 800;
+        x = (x + cam.getVx()*16*(Math.pow(10,-3)*5)) % 800;
         statThing1.getImgView().setViewport(new Rectangle2D(x, 0, 800 - x, 400));
         statThing2.getImgView().setX(800 - x);
     }
