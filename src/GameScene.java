@@ -101,7 +101,9 @@ public class GameScene extends Scene {
         statThing2.getImgView().setX(800 - x);
     }
     public void enemiSpwaner(long time, Group g,Camera cam) {
-        int random = new Random().nextInt(10);
+        int random = new Random().nextInt(100);
+        Image enemispritesheet = new Image(syspath+"\\img\\crab.png");
+        ImageView enemisprite = new ImageView(enemispritesheet);
         if (random == 1) {
             double ytoset=220;
             int enemiType = new Random().nextInt(4);
@@ -109,10 +111,12 @@ public class GameScene extends Scene {
                 ytoset = 400;// the fish as offset as it comes from the ground.
             } else if (enemiType==3){
                 ytoset = 20;// the thing in a tree is more complicated as it need a tree
-                enemis.add(new Enemi(600,20,enemis.get(0).getImgView(),5));
+                Image enemispritesheet2 = new Image(syspath+"\\img\\crab.png");
+                ImageView enemisprite2 = new ImageView(enemispritesheet2);
+                enemis.add(new Enemi(heros.getX()+600,20,enemisprite2,5));
                 g.getChildren().add(enemis.get(enemis.size()-1).getImgView());
             }
-            enemis.add( new Enemi(600,ytoset,enemis.get(0).getImgView(),enemiType));
+            enemis.add( new Enemi(heros.getX()+600,ytoset,enemisprite,enemiType));
             g.getChildren().add(enemis.get(enemis.size()-1).getImgView());
         }
     }
