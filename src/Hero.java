@@ -183,6 +183,7 @@ public class Hero extends AnimatedThing {
                 {
                     if (enemi.getEnemiType()==-1){ // dans le cas des anneaux.
                         if (stamina<800) stamina+=200; // sonic gagne un bonus de stamina !
+                        if (stamina>=800) stamina = 999;
                         if (scene.getNumberOfLives() < 3) {
                             scene.setNumberOfLives(scene.getNumberOfLives() +1); // Sonic regagne 1pv.
                         }
