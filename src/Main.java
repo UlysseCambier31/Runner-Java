@@ -36,7 +36,7 @@ public class Main extends Application{
                 for (Enemi enemi : scene.getEnemisArray()) { // Update
                     enemi.update(time, MainCamera,scene);    // des
                 }                                            // Enemis
-                if (waittospawn>waittospawnmax) {                // Appel
+                if (waittospawn>waittospawnmax&&step==3) {                // Appel
                     scene.enemiSpwaner(time, root, MainCamera);  // du Enemi
                 }                                                // Spawner
                 if(scene.getNumberOfLives()==0&&step==3){ //Check
