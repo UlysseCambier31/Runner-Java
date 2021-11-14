@@ -146,7 +146,7 @@ public class GameScene extends Scene {
         statThing1.getImgView().setViewport(new Rectangle2D(x, 0, 800 - x, 400));
         statThing2.getImgView().setX(800 - x);
         if (numberOfLives>0){
-            cam.setAcceleration(cam.getAcceleration()+0.001);
+            cam.setAcceleration(cam.getAcceleration()+0.003);
             score = score +1+2*heros.getSuperspeedmultiplier();
             scoretext.setText("Score : "+this.score);
         }

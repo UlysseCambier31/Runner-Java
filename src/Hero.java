@@ -188,6 +188,7 @@ public class Hero extends AnimatedThing {
                     else {
                         stamina = 1;
                         isinvincible = true;
+                        cam.setAcceleration(5);
                         if (scene.getNumberOfLives() > 0) {
                             scene.setNumberOfLives(scene.getNumberOfLives() - 1);
                         }
