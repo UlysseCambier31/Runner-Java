@@ -51,10 +51,12 @@ public class Camera {
 
     public void update(long time,Hero heros){
         double a_x = (heros.getX()-x)-1.2*v_x;
-        double a_y = (heros.getY()-y)-1.2*v_y;
+        //double a_y = (heros.getY()-y)-1.2*v_y;
         v_x = a_x*16*(Math.pow(10,-3))+v_x;
-        v_y = a_y*16*(Math.pow(10,-3))+v_y;
+        //v_y = a_y*16*(Math.pow(10,-3))+v_y;
         x = v_x *16*(Math.pow(10,-3))+x;
-        y = v_y*16*(Math.pow(10,-3))+y;
+        //y = v_y*16*(Math.pow(10,-3))+y;
+
+        //On abandonne y.... 
     }
 }

@@ -15,45 +15,46 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 public class Main extends Application{
-    int step = 0;
-    int waittospawn = 0;
+    int step = 0; // définit l'état du jeu : lancé, en cours, arrété.
+    int waittospawn = 0; // waittospawn& waittospawnmaw permettent de s'assurer que le joueur ne reçois pas d'énemi dès le lancement du jeu.
     int waittospawnmax = 200;
     public void start(Stage primaryStage){
-        primaryStage.setTitle("Demo");
+        primaryStage.setTitle("Java CAMBIER Ulysse - SONIC THE HEDGEHOG");
         Group root = new Group();
         Camera MainCamera = new Camera(10,10);
         GameScene scene = new GameScene(root,MainCamera);
         primaryStage.setScene(scene);
         primaryStage.show();
+        // On créé le timer ici.
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long time) {
                 waittospawn++;
-                scene.getHeros().update(time,MainCamera,scene);
-                MainCamera.update(time,scene.getHeros());
-                scene.update(time,MainCamera);
-                for (Enemi enemi : scene.getEnemisArray()) {
-                    enemi.update(time, MainCamera,scene);
-                }
-                if (waittospawn>waittospawnmax) {
-                    scene.enemiSpwaner(time, root, MainCamera);
-                }
-                if(scene.getNumberOfLives()==0&&step==1){
-                    scene.spawnGameOver(root);
-                    step = 2;
+                scene.getHeros().update(time,MainCamera,scene);// Update du héros.
+                MainCamera.update(time,scene.getHeros()); // Update de la caméra
+                scene.update(time,MainCamera); // Update de la scene
+                for (Enemi enemi : scene.getEnemisArray()) { // Update
+                    enemi.update(time, MainCamera,scene);    // des
+                }                                            // Enemis
+                if (waittospawn>waittospawnmax) {                // Appel
+                    scene.enemiSpwaner(time, root, MainCamera);  // du Enemi
+                }                                                // Spawner
+                if(scene.getNumberOfLives()==0&&step==1){ //Check
+                    scene.spawnGameOver(root);            //for
+                    step = 2;                             //GAME OVER
                 }
             }
         };
         scene.setOnMouseClicked( (event)->{
-            if(step==1) {
+            if(step==1) { // Si le jeu dans l'état lancé, alors le click correspond au jump
                 scene.getHeros().jump();
-            } else if(step==0){
-                step = 1;
-                scene.HideStartScreen();
-                timer.start();
+            } else if(step==0){ //Si le jeu est sur le menu d'acceuil.
+                step = 1; // On passe step dans l'état jeu lancé
+                scene.HideStartScreen(); //On cache l'écran start
+                timer.start(); //On démarre le jeu en démarrant le timer.
             }
         });
-        scene.setOnKeyPressed((KeyEvent e) -> {
+        scene.setOnKeyPressed((KeyEvent e) -> { // Si le joueur appuie sur Espace, on appel la fonction superspeed.
             if (e.getCode().equals(KeyCode.SPACE)){
                 scene.getHeros().superspeed();
             }

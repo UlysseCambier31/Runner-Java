@@ -6,7 +6,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
 
 public class Hero extends AnimatedThing {
-    public int indexsuperspeedstart;
+    public int indexsuperspeedstart;// Différentes variables en rapports avec des temps.
     public int indexsuperspeedstartmax;
     public int indexsuperspeedmax;
     public int indexsuperspeed;
@@ -34,8 +34,8 @@ public class Hero extends AnimatedThing {
         this.isinvincible= false;
     }
     public void jump() {
-        if (attitude==0) {
-            attitude = 1;
+        if (attitude==0) { // Si sonic ne fait que courir.
+            attitude = 1; // On change d'animation.
         }
     }
 
@@ -44,14 +44,11 @@ public class Hero extends AnimatedThing {
     }
 
     public void superspeed() {
-        if (attitude==0&&stamina==1000){
-            superspeedstate = 1;
-            stamina = 1;
-            isinvincible=true;
+        if (attitude==0&&stamina==1000){ // Si sonic ne fait que courrir et a rempli sa barre de stamina.
+            superspeedstate = 1; // On déclenche la superspeed.
+            stamina = 1; // On reset la stamina.
+            isinvincible=true; // Sonic est invincible en superspeed.
         }
-    }
-    public boolean isInvincible() {
-        return  isinvincible;
     }
 
     public int getStamina() {
@@ -59,7 +56,9 @@ public class Hero extends AnimatedThing {
     }
 
     static  boolean collision(Hero hero, Enemi enemi) {
-        double alpha = 20;
+        //Une fonction qui permet de trouver une collision entre deux objets.
+        double alpha = 20;//Alpha permet de réduire la taille de la hitbox qui est trop grande...
+
         double rectaleft = hero.getX()+alpha;
         double rectaright = hero.getX()+hero.getImgView().getViewport().getWidth()-alpha;
         double rectatop = hero.getY()+hero.getImgView().getViewport().getHeight()-alpha;
@@ -69,6 +68,7 @@ public class Hero extends AnimatedThing {
         double rectbright = enemi.getX()+enemi.getImgView().getViewport().getWidth()-alpha;
         double rectbtop= enemi.getY()+enemi.getImgView().getViewport().getHeight()-alpha;
         double rectbbottom = enemi.getY()+alpha;
+
         if (rectaleft < rectbright && rectaright > rectbleft &&
                 rectatop > rectbbottom && rectabottom < rectbtop ) {
             return  true;
@@ -79,10 +79,12 @@ public class Hero extends AnimatedThing {
         subindex++;
         if (subindex>frameduration) {subindex=0;index++;} // réduction du temps frames
         if (index>maxindex) index=0;
+
+        //Update des animations en fonction de l'état attitude du héros.
         if (attitude==0) { // course normale.
             imgView.setViewport(new Rectangle2D(0 + (85 * (index % 6)), 0, 85, 100));
             if (stamina<1000) {
-                stamina++;
+                stamina++; // Le héros gagne de la stamina superspeed au cours du temps.
             }
         } else if (attitude==1) { // Saut simplifié
             if (y > 10) {
@@ -139,67 +141,70 @@ public class Hero extends AnimatedThing {
             imgView.setViewport(new Rectangle2D(85 * 5, 160, 85, 100));
         }
 
-        if(superspeedstate==1) {
-            attitude = 5;
-            superspeedmultiplier = 1;
-            indexsuperspeedstart ++;
-            if (indexsuperspeedstart==indexsuperspeedstartmax) {
-                superspeedstate=2;
+        //Gestion du superspeed
+        if(superspeedstate==1) { // début superspeed.
+            attitude = 5;// On entre dans l'animation début superspeed ou sonic roule en boule mais est visible.
+            superspeedmultiplier = 1; // On gagne de la vistesse.
+            indexsuperspeedstart ++; // On fait avancer le temps dans cet état
+            if (indexsuperspeedstart==indexsuperspeedstartmax) { //Lorsque sonic a bien roulé en boule, on passe en superspeed complète.
+                superspeedstate=2; // On change d'état
                 indexsuperspeedstart=0;
             }
-        } else if (superspeedstate==2){
-            attitude = 6;
-            superspeedmultiplier = 2;
-            indexsuperspeed++;
-            if(indexsuperspeed==indexsuperspeedmax) {
-                superspeedstate=3;
+        } else if (superspeedstate==2){ // superspeed
+            attitude = 6; // On entre dans l'animation super speed ou sonic est en boule et n'est plus visible.
+            superspeedmultiplier = 2; // On gagne en vitesse encore plus.
+            indexsuperspeed++; // On fait avancer le temps dans cet état.
+            if(indexsuperspeed==indexsuperspeedmax) { // Lorsque sonic a fini son animation,
+                superspeedstate=3; // On va vers l'animation de fin superspeed.
                 indexsuperspeed = 0;
             }
-        } else if (superspeedstate ==3){
-            attitude=5;
-            superspeedmultiplier = 1;
-            indexsuperspeedstart++;
+        } else if (superspeedstate ==3){// fin superspeed
+            attitude=5; // on retourne à l'animation début superspeed qui ser aussi d'animation de fin.
+            superspeedmultiplier = 1; // On baisse la vitesse.
+            indexsuperspeedstart++; // on fait avancer le temps.
             if(indexsuperspeedstart==indexsuperspeedstartmax){
-                superspeedstate=0;
+                superspeedstate=0; // on arrête la superspeed.
                 indexsuperspeedstart=0;
-                attitude = 0;
-                superspeedmultiplier = 0;
-                isinvincible=false;
+                attitude = 0; // On retourne à la course à pied.
+                superspeedmultiplier = 0; // On stop l'acceleration bonus.
+                isinvincible=false; // Sonic n'est plus invincible.
             }
         }
 
-        if (scene.getNumberOfLives()>0) {
+        if (scene.getNumberOfLives()>0) { // Si sonic n'est pas mort, il avance...
             x++;
         }
         imgView.setY(y); //imgView.setY(y-cam.getY()); l'équilibre du ressort n'est pas bon... à faire.
         imgView.setX(x-cam.getX());
-        for (Enemi enemi:scene.getEnemisArray()) {
-            if(enemi.getEnemiType()<4) {
-                if(collision(scene.getHeros(),enemi)&&!isinvincible)
+
+        for (Enemi enemi:scene.getEnemisArray()) { // Ici on check les collision est on prends les décision en fonction.
+            if(enemi.getEnemiType()<4) { // Si l'enemi n'est pas un enemi inerte (décors : arbre, explosion, pont,...)
+                if(collision(scene.getHeros(),enemi)&&!isinvincible) // Si il y a collision et que sonic n'est pas invincible.
                 {
-                    if (enemi.getEnemiType()==-1){
-                        if (stamina<900) stamina+=100;
+                    if (enemi.getEnemiType()==-1){ // dans le cas des anneaux.
+                        if (stamina<800) stamina+=200; // sonic gagne un bonus de stamina !
                         if (scene.getNumberOfLives() < 3) {
-                            scene.setNumberOfLives(scene.getNumberOfLives() +1);
+                            scene.setNumberOfLives(scene.getNumberOfLives() +1); // Sonic regagne 1pv.
                         }
-                        scene.setScore(scene.getScore()+500);
-                        enemi.setEnemiType(6);
+                        scene.setScore(scene.getScore()+1000); // Sonic gagne un bonus de score.
+                        enemi.setEnemiType(6); // L'anneau disparait
                     }
-                    else {
-                        stamina = 1;
-                        isinvincible = true;
-                        cam.setAcceleration(5);
+                    else { // dans les autres cas.
+                        enemi.setEnemiType(6); //L'enemi explose.
+                        stamina = 1; // sonic perd toute sa stamina.
+                        isinvincible = true; // sonic devient invicible
+                        cam.setAcceleration(5); // l'acceleration accumulée est perdue.
                         if (scene.getNumberOfLives() > 0) {
-                            scene.setNumberOfLives(scene.getNumberOfLives() - 1);
+                            scene.setNumberOfLives(scene.getNumberOfLives() - 1); // sonic perd une vie.
                         }
                         if (scene.getNumberOfLives() == 0) {
-                            attitude = 7;
+                            attitude = 7;// si sonic n'a plus de vie, il meurt.
                         } else {
-                            attitude = 3;
+                            attitude = 3;// si sonic a encore des vies, il fait son animation touché;
                         }
                     }
                 } else if(collision(scene.getHeros(),enemi)&&isinvincible){
-                    enemi.setEnemiType(6);
+                    enemi.setEnemiType(6);// Si sonic est invincible, les enemis explosent sur son passage.
                 }
             }
         }

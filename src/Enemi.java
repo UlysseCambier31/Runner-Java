@@ -29,13 +29,15 @@ public class Enemi extends AnimatedThing{
     }
 
     public void update(long time, Camera cam, GameScene scene){
-        subindex++;
+        subindex++;//ralentissement de frame
         if (subindex>frameduration) {subindex=0;index++;}
         if (index>maxindex) index=0;
+
         //Anneaux - Pas un enemi mais bon...
         if (EnemiType==-1) {
             imgView.setViewport(new Rectangle2D(0 + (64 * (index % 10)), 0, 64, 64));
         }
+
         //crab Enemi
         else if (EnemiType==0) {
             imgView.setViewport(new Rectangle2D(0 + (85 * (index % 3)), 0, 85, 100));
@@ -44,8 +46,8 @@ public class Enemi extends AnimatedThing{
         else if (EnemiType==1) {
             imgView.setViewport(new Rectangle2D(0+(85*3)+(85*(index%3)), 0, 85, 100));
         }
-        //Fish Up
-        else if (EnemiType==2) {
+        //Fish Up (goes with Fish down and bridge )
+        else if (EnemiType==2) { // poisson avec saut simplifié
             if (y > 10) {
                 y -=5;
                 imgView.setViewport(new Rectangle2D(0, 160, 85, 100));
@@ -57,8 +59,10 @@ public class Enemi extends AnimatedThing{
         if (EnemiType==3) {
             imgView.setViewport(new Rectangle2D(0 + (85 * (index % 3)), 160*2, 85, 100));
         }
+
+        // Plus extactement des enemis, mais des images ou animations importantes en rapport avec.
         //Fish Down
-        else if (EnemiType==4) {
+        else if (EnemiType==4) { // Poisson avec descente simplifié
             if (y < 500) {
                 y +=5;
                 imgView.setViewport(new Rectangle2D(85, 160, 85, 100));
@@ -85,6 +89,7 @@ public class Enemi extends AnimatedThing{
         if (EnemiType==8){
             imgView.setViewport(new Rectangle2D(0,0,124,400));
         }
+        // Update position
         x = (x - cam.getVx()*16*(Math.pow(10,-3)*(1+cam.getAcceleration()*(1+(scene.getHeros().getSuperspeedmultiplier()*2)))));
         imgView.setY(y);
         imgView.setX(x-cam.getX());
