@@ -24,7 +24,7 @@ import java.util.Random;
 
 public class GameScene extends Scene {
     private Camera MainCamera;
-    private staticThing statThing1, statThing2,startscreen;
+    private staticThing statThing1, statThing2,startscreen,info1,info2;
     private int numberOfLives;
     private Hero heros;
     private List<Enemi> enemis = new ArrayList<Enemi>();
@@ -86,6 +86,9 @@ public class GameScene extends Scene {
         this.statThing1 = new staticThing(0,0,new ImageView(syspath+"\\img\\desert.png"));
         this.statThing2 = new staticThing(0,800,new ImageView(syspath+"\\img\\desert.png"));
         this.startscreen = new staticThing(20,0,new ImageView(syspath+"\\img\\startscreen.png"));
+        this.info1 = new staticThing(20,0,new ImageView(syspath+"\\img\\infos1.png"));
+        this.info2 = new staticThing(20,0,new ImageView(syspath+"\\img\\infos2.png"));
+
 
         //Write on screen
         g.getChildren().add(this.statThing1.getImgView());
@@ -93,6 +96,8 @@ public class GameScene extends Scene {
         g.getChildren().add(lifesprite);
         g.getChildren().add(speedsprite);
         g.getChildren().add(heros.getImgView());
+        g.getChildren().add(this.info2.getImgView());
+        g.getChildren().add(this.info1.getImgView());
         g.getChildren().add(this.startscreen.getImgView());
         g.getChildren().add(this.scoretext);
         //Set initial numberOfLives
@@ -123,6 +128,12 @@ public class GameScene extends Scene {
 
     public void HideStartScreen() {
         startscreen.getImgView().setX(600);
+    }
+    public void HideInfo1() {
+        info1.getImgView().setX(600);
+    }
+    public void HideInfo2() {
+        info2.getImgView().setX(600);
     }
 
     public  void update(long time,Camera cam){

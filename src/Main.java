@@ -39,18 +39,24 @@ public class Main extends Application{
                 if (waittospawn>waittospawnmax) {                // Appel
                     scene.enemiSpwaner(time, root, MainCamera);  // du Enemi
                 }                                                // Spawner
-                if(scene.getNumberOfLives()==0&&step==1){ //Check
+                if(scene.getNumberOfLives()==0&&step==3){ //Check
                     scene.spawnGameOver(root);            //for
-                    step = 2;                             //GAME OVER
+                    step = 4;                             //GAME OVER
                 }
             }
         };
-        scene.setOnMouseClicked( (event)->{
-            if(step==1) { // Si le jeu dans l'état lancé, alors le click correspond au jump
+        scene.setOnMouseClicked( (event)-> {
+            if (step == 3) { // Si le jeu dans l'état lancé, alors le click correspond au jump
                 scene.getHeros().jump();
-            } else if(step==0){ //Si le jeu est sur le menu d'acceuil.
-                step = 1; // On passe step dans l'état jeu lancé
-                scene.HideStartScreen(); //On cache l'écran start
+            } else if (step == 0) { //Si le jeu est sur le menu d'acceuil.
+                step = 1; // On passe step dans l'état jeu lancé.
+                scene.HideStartScreen(); //On cache l'écran start.
+            } else if (step == 1) { //Si le jeu est sur le menu d'acceuil.
+                step = 2; // On passe step dans l'état jeu lancé.
+                scene.HideInfo1();//On cache l'écran info1.
+            } else if (step == 2) { //Si le jeu est sur le menu d'acceuil.
+                step = 3; // On passe step dans l'état jeu lancé
+                scene.HideInfo2();//On cache l'écran info2.
                 timer.start(); //On démarre le jeu en démarrant le timer.
             }
         });

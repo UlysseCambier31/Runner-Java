@@ -11,27 +11,7 @@ public class staticThing {
         this.imgView = imgView;
     }
 
-    public double getX() {
-        return x;
-    }
-
-    public void setX(double x) {
-        this.imgView.setX(x);
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public void setY(double y) {
-        this.imgView.setX(y);
-    }
-
     public ImageView getImgView() {
         return imgView;
-    }
-
-    public void setImgView(ImageView imgView) {
-        this.imgView = imgView;
     }
 }
