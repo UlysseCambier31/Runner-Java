@@ -14,8 +14,6 @@ abstract class AnimatedThing {
     protected double frameduration;
     protected int maxindex;
     protected int subindex;
-    protected int maxsubindex;
-    protected double winSizeX,winSizeY;
 
     public AnimatedThing(double x, double y, ImageView imgView, int attitude) {
         this.x = x;

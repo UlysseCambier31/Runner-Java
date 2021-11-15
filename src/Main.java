@@ -44,7 +44,13 @@ public class Main extends Application{
                     step = 4;                             //GAME OVER
                 }
                 if(scene.getEnemisArray().size()>10){
-                    scene.getEnemisArray().remove(0);// No more than 10 enemis handeled for perf.
+                    int i =0;
+                    while(scene.getEnemisArray().size()>11) {
+                        if(!(scene.getEnemisArray().get(i).EnemiType>8)){
+                            scene.getEnemisArray().remove(i);
+                        }
+                        i++;
+                    }// No more than 10 enemis handeled outside boss  for perf.
                 }
             }
         };
