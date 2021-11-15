@@ -43,6 +43,9 @@ public class Main extends Application{
                     scene.spawnGameOver(root);            //for
                     step = 4;                             //GAME OVER
                 }
+                if(scene.getEnemisArray().size()>10){
+                    scene.getEnemisArray().remove(0);// No more than 10 enemis handeled for perf.
+                }
             }
         };
         scene.setOnMouseClicked( (event)-> {

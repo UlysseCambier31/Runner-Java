@@ -87,7 +87,7 @@ public class Enemi extends AnimatedThing{
         }
         //pont
         if (EnemiType==8){
-            imgView.setViewport(new Rectangle2D(0,0,124,400));
+            imgView.setViewport(new Rectangle2D(0+(124*(index%2)),0,124,400));
         }
         // Update position
         x = (x - cam.getVx()*16*(Math.pow(10,-3)*(1+cam.getAcceleration()*(1+(scene.getHeros().getSuperspeedmultiplier()*2)))));

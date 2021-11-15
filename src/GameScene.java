@@ -24,12 +24,14 @@ import java.util.Random;
 
 public class GameScene extends Scene {
     private Camera MainCamera;
-    private staticThing statThing1, statThing2,startscreen,info1,info2;
+    private List<staticThing> statThing1 = new ArrayList<staticThing>();
+    private List<staticThing> statThing2 = new ArrayList<staticThing>();
+    private staticThing startscreen,info1,info2;
     private int numberOfLives;
     private Hero heros;
     private List<Enemi> enemis = new ArrayList<Enemi>();
     private String syspath = System.getProperty("user.dir"); // ceci permet de ne pas avoir de bug liés aux paths.
-    private double x=500;
+    private double x=500,x2=500,x3=500,x4=500,x5=500,x6=500;
     private int subindex=0;
     private int minspawnduration=20;
     private ImageView lifesprite;
@@ -83,16 +85,36 @@ public class GameScene extends Scene {
         this.scoretext.setFill(Color.YELLOW);
 
         //StaticThings init
-        this.statThing1 = new staticThing(0,0,new ImageView(syspath+"\\img\\desert.png"));
-        this.statThing2 = new staticThing(0,800,new ImageView(syspath+"\\img\\desert.png"));
+        this.statThing1.add(new staticThing(0,0,new ImageView(syspath+"\\img\\desert.png")));
+        this.statThing2.add(new staticThing(0,800,new ImageView(syspath+"\\img\\desert.png")));
+        this.statThing1.add(new staticThing(0,0,new ImageView(syspath+"\\img\\desert2.png")));
+        this.statThing2.add(new staticThing(0,800,new ImageView(syspath+"\\img\\desert2.png")));
+        this.statThing1.add(new staticThing(0,0,new ImageView(syspath+"\\img\\desert3.png")));
+        this.statThing2.add(new staticThing(0,800,new ImageView(syspath+"\\img\\desert3.png")));
+        this.statThing1.add(new staticThing(0,0,new ImageView(syspath+"\\img\\desert4.png")));
+        this.statThing2.add(new staticThing(0,800,new ImageView(syspath+"\\img\\desert4.png")));
+        this.statThing1.add(new staticThing(0,0,new ImageView(syspath+"\\img\\desert5.png")));
+        this.statThing2.add(new staticThing(0,800,new ImageView(syspath+"\\img\\desert5.png")));
+        this.statThing1.add(new staticThing(0,0,new ImageView(syspath+"\\img\\desert6.png")));
+        this.statThing2.add(new staticThing(0,800,new ImageView(syspath+"\\img\\desert6.png")));
         this.startscreen = new staticThing(20,0,new ImageView(syspath+"\\img\\startscreen.png"));
         this.info1 = new staticThing(20,0,new ImageView(syspath+"\\img\\infos1.png"));
         this.info2 = new staticThing(20,0,new ImageView(syspath+"\\img\\infos2.png"));
 
 
         //Write on screen
-        g.getChildren().add(this.statThing1.getImgView());
-        g.getChildren().add(this.statThing2.getImgView());
+        g.getChildren().add(this.statThing1.get(2).getImgView());
+        g.getChildren().add(this.statThing2.get(2).getImgView());
+        g.getChildren().add(this.statThing1.get(3).getImgView());
+        g.getChildren().add(this.statThing2.get(3).getImgView());
+        g.getChildren().add(this.statThing1.get(1).getImgView());
+        g.getChildren().add(this.statThing2.get(1).getImgView());
+        g.getChildren().add(this.statThing1.get(5).getImgView());
+        g.getChildren().add(this.statThing2.get(5).getImgView());
+        g.getChildren().add(this.statThing1.get(4).getImgView());
+        g.getChildren().add(this.statThing2.get(4).getImgView());
+        g.getChildren().add(this.statThing1.get(0).getImgView());
+        g.getChildren().add(this.statThing2.get(0).getImgView());
         g.getChildren().add(lifesprite);
         g.getChildren().add(speedsprite);
         g.getChildren().add(heros.getImgView());
@@ -138,9 +160,25 @@ public class GameScene extends Scene {
 
     public  void update(long time,Camera cam){
         //On update la position du fond en prenant compte de l'acc accumulé et du l'éventuelle superspeed.
+        // Effet parallax.
         x = (x + cam.getVx()*16*(Math.pow(10,-3)*(2+cam.getAcceleration()*(1+(heros.getSuperspeedmultiplier()*2))))) % 800;
-        statThing1.getImgView().setViewport(new Rectangle2D(x, 0, 800 - x, 400));
-        statThing2.getImgView().setX(800 - x);
+        x2 = (x2 + cam.getVx()*16*(Math.pow(10,-3)*((2+cam.getAcceleration()*(1+(heros.getSuperspeedmultiplier()*2)))/2))) % 800;
+        x3 = (x3 + cam.getVx()*16*(Math.pow(10,-3)*((2+cam.getAcceleration()*(1+(heros.getSuperspeedmultiplier()*2)))/3))) % 800;
+        x4 = (x4 + cam.getVx()*16*(Math.pow(10,-3)*((2+cam.getAcceleration()*(1+(heros.getSuperspeedmultiplier()*2)))/100))) % 800;
+        x5 = (x5 + cam.getVx()*16*(Math.pow(10,-3)*((2+cam.getAcceleration()*(1+(heros.getSuperspeedmultiplier()*2)))/50))) % 800;
+        x6 = (x6 + cam.getVx()*16*(Math.pow(10,-3)*((2+cam.getAcceleration()*(1+(heros.getSuperspeedmultiplier()*2)))/200))) % 800;
+        statThing1.get(0).getImgView().setViewport(new Rectangle2D(x, 0, 800 - x, 400));
+        statThing2.get(0).getImgView().setX(800 - x);
+        statThing1.get(4).getImgView().setViewport(new Rectangle2D(x2, 0, 800 - x2, 400));
+        statThing2.get(4).getImgView().setX(800 - x2);
+        statThing1.get(5).getImgView().setViewport(new Rectangle2D(x3, 0, 800 - x3, 400));
+        statThing2.get(5).getImgView().setX(800 - x3);
+        statThing1.get(1).getImgView().setViewport(new Rectangle2D(x4, 0, 800 - x4, 400));
+        statThing2.get(1).getImgView().setX(800 - x4);
+        statThing1.get(3).getImgView().setViewport(new Rectangle2D(x5, 0, 800 - x5, 400));
+        statThing2.get(3).getImgView().setX(800 - x5);
+        statThing1.get(2).getImgView().setViewport(new Rectangle2D(x6, 0, 800 - x6, 400));
+        statThing2.get(2).getImgView().setX(800 - x6);
 
         // Si le jeu est toujours en cours
         if (numberOfLives>0){
