@@ -99,7 +99,7 @@ public class Enemi extends AnimatedThing{
         }
         //boss
         if (EnemiType==9){//boss in
-            if (x > 450) {
+            if (x > 510) {
                 x -=1;
                 imgView.setViewport(new Rectangle2D(0,0+(61*(index%4)),97,61));
             } else {
