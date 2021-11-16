@@ -183,9 +183,9 @@ public class GameScene extends Scene {
         // Si le jeu est toujours en cours
         if (numberOfLives>0){
             cam.setAcceleration(cam.getAcceleration()+0.003); // On accumule de l'acceleration.
-            score = score +1+2*heros.getSuperspeedmultiplier(); // On accumule du score, et on gagne un bonus si on est en superspeed.
+            score = score +(int)(cam.getAcceleration()/2)+2*heros.getSuperspeedmultiplier(); // On accumule du score, et on gagne un bonus si on est en superspeed.
             scoretext.setText("Score : "+this.score); // On update le score affiché.
-            if (score>5000&&boss==0){
+            if (score>1000&&boss==0){
                 boss = 1;
             } if (score>7000&boss==2){
                 boss = 3;
@@ -266,14 +266,15 @@ public class GameScene extends Scene {
                 bosssprite = new ImageView(bossspritesheet);
                 enemis.add(new Enemi(600, 20, bosssprite, 9));
                 g.getChildren().add(enemis.get(enemis.size() - 1).getImgView());
-            } /*else if (boss==2){
-                int random = new Random().nextInt(5);
-                if(random==1) {
+            } else if (boss==2) {
+                int rd = new Random().nextInt(5);
+                if (rd == 1) {
                     Image bulletspritesheet = new Image(syspath + "\\img\\heros.png");
                     ImageView bulletsprite = new ImageView(bulletspritesheet);
                     enemis.add(new Enemi(bosssprite.getX() - 30, bosssprite.getY(), bulletsprite, -2));
                     g.getChildren().add(enemis.get(enemis.size() - 1).getImgView());
-                }*/ // Not working....
+                }
+            }// Not working....
             subindex=0; // On reset le temps d'attente après le spawn d'un enemi.
         }
     }
