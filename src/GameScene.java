@@ -198,11 +198,11 @@ public class GameScene extends Scene {
             }
             score = score +(int)(cam.getAcceleration()/2)+2*heros.getSuperspeedmultiplier(); // On accumule du score, et on gagne un bonus si on est en superspeed.
             scoretext.setText("Score : "+this.score); // On update le score affiché.
-            if (score>(Math.pow(10,4+bosswave))&&boss==0){  // Apparition du boss.
+            if (score>(Math.pow(10,4+bosswave))&&boss==0){  // Apparition du boss toute les puissance de 10 à partir de 10000.
                 boss = 1;
-            } if (score>(Math.pow(10,4+bosswave)+10000)&boss==2){ // Disparition du boss 10000 de score plus loin.
-                boss = 3;
-                bosswave++; // bosswave ne fonctionne pas
+            } if (score>(Math.pow(10,4+bosswave)+10000)&&boss==2){ // Disparition du boss 10000 de score plus loin.
+                bosswave++;
+                boss = 0;
             }
         }
 
@@ -263,7 +263,7 @@ public class GameScene extends Scene {
     public void enemiSpwaner(long time, Group g,Camera cam) {
         subindex++; // On ralenti le spawner par comptage...
         if (subindex==minspawnduration) {
-            if (boss==0||boss==3) {
+            if (boss==0) {
                 // On crée un enemie avec sa propre spritesheet
                 int random = new Random().nextInt(5);
                 Image enemispritesheet = new Image(syspath + "\\img\\crab.png");

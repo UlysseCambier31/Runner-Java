@@ -122,7 +122,7 @@ public class Enemi extends AnimatedThing{
             } else {
                 EnemiType=12;
             }
-            if(scene.isBoss()==3) {
+            if(scene.isBoss()==0) {
                 EnemiType=10;
             }
         }
@@ -133,7 +133,7 @@ public class Enemi extends AnimatedThing{
             }  else  {
                 EnemiType=11;
             }
-            if(scene.isBoss()==3) {
+            if(scene.isBoss()==0) {
                 EnemiType=10;
             }
         }
