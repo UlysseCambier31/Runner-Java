@@ -60,7 +60,7 @@ public class Hero extends AnimatedThing {
         //Une fonction qui permet de trouver une collision entre deux objets.
         double alpha = 20;//Alpha permet de réduire la taille de la hitbox qui est trop grande...
 
-        if(enemi.getEnemiType()==-2) alpha=0;
+        if(enemi.getEnemiType()==-2) alpha=0; // des petits ajustements liés au boss
 
         double rectaleft = hero.getX()+alpha;
         double rectaright = hero.getX()+hero.getImgView().getViewport().getWidth()-alpha;
@@ -72,7 +72,7 @@ public class Hero extends AnimatedThing {
         double rectbtop= enemi.getY()+enemi.getImgView().getViewport().getHeight()-alpha;
         double rectbbottom = enemi.getY()+alpha;
 
-        if(enemi.getEnemiType()==-2){
+        if(enemi.getEnemiType()==-2){ // des petits ajustements liés au boss
             rectaleft =200-150;
             rectaright=285-150;
         }

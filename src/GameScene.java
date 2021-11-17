@@ -198,9 +198,9 @@ public class GameScene extends Scene {
             }
             score = score +(int)(cam.getAcceleration()/2)+2*heros.getSuperspeedmultiplier(); // On accumule du score, et on gagne un bonus si on est en superspeed.
             scoretext.setText("Score : "+this.score); // On update le score affiché.
-            if (score>(Math.pow(10,4+bosswave))&&boss==0){
+            if (score>(Math.pow(10,4+bosswave))&&boss==0){  // Apparition du boss toute les puissances de 10 en score.
                 boss = 1;
-            } if (score>(Math.pow(10,4+bosswave)+10000)&boss==2){
+            } if (score>(Math.pow(10,4+bosswave)+10000)&boss==2){ // Disparition du boss 10000 de score plus loin.
                 boss = 3;
                 bosswave++;
             }
@@ -301,13 +301,13 @@ public class GameScene extends Scene {
                     enemis.add(new Enemi(heros.getX() + 600, ytoset, enemisprite, enemiType));
                     g.getChildren().add(enemis.get(enemis.size() - 1).getImgView());
                 }
-            } else if (boss==1) {
+            } else if (boss==1) { // Si on est entrain d'entrée en phase de boss
                 boss=2;
-                Image bossspritesheet = new Image(syspath+"\\img\\boss.png");
+                Image bossspritesheet = new Image(syspath+"\\img\\boss.png"); // on charge le boss
                 bosssprite = new ImageView(bossspritesheet);
                 enemis.add(new Enemi(600, 20, bosssprite, 9));
                 g.getChildren().add(enemis.get(enemis.size() - 1).getImgView());
-            } else if (boss==2) {
+            } else if (boss==2) { // Phase de tire dans la phase de boss.
                 int rd = new Random().nextInt(5);
                 if (rd <3  && Math.abs(bosssprite.getY()-(heros.getImgView().getY()+10))<10) {
                     Image bulletspritesheet = new Image(syspath + "\\img\\fireball.png");

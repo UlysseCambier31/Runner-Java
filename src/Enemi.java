@@ -141,10 +141,10 @@ public class Enemi extends AnimatedThing{
             y=600;
         }
         // Update position
-        if (EnemiType>8||EnemiType==-2) {
+        if (EnemiType>8||EnemiType==-2) { // si objet de la phase de boss
             imgView.setY(y);
             imgView.setX(x);
-        } else {
+        } else { // sinon
             x = (x - cam.getVx() * 16 * (Math.pow(10, -3) * (1 + cam.getAcceleration() * (1 + (scene.getHeros().getSuperspeedmultiplier() * 2)))));
             imgView.setY(y);
             imgView.setX(x - cam.getX());
