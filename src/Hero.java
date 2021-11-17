@@ -82,7 +82,7 @@ public class Hero extends AnimatedThing {
 
         //Update des animations en fonction de l'état attitude du héros.
         if (attitude==0) { // course normale.
-            imgView.setViewport(new Rectangle2D(0 + (85 * (index % 6)), 0, 85, 100));
+            imgView.setViewport(new Rectangle2D(85 * (index % 6), 0, 85, 100));
             if (stamina<1000) {
                 stamina++; // Le héros gagne de la stamina superspeed au cours du temps.
             }
@@ -117,9 +117,9 @@ public class Hero extends AnimatedThing {
                 isinvincible= false;
             }
         } else if (attitude==5){ //superspeed début & fin
-            imgView.setViewport(new Rectangle2D(0 + (85 * (index % 4)), 160*2, 85, 100));
+            imgView.setViewport(new Rectangle2D(85 * (index % 4), 160*2, 85, 100));
         } else if (attitude==6){ //superspeed
-            imgView.setViewport(new Rectangle2D(0 + (85 * 4)+(85*(index%2)), 160*2, 85, 100));
+            imgView.setViewport(new Rectangle2D((85 * 4)+(85*(index%2)), 160*2, 85, 100));
         }else if (attitude==7){ //Mort saut
             if (y > 10) {
                 y -=5 ;
@@ -183,7 +183,7 @@ public class Hero extends AnimatedThing {
                 {
                     if (enemi.getEnemiType()==-1){ // dans le cas des anneaux.
                         if (stamina<800) stamina+=200; // sonic gagne un bonus de stamina !
-                        if (stamina>=800) stamina = 999;
+                        if (stamina>=800 && stamina!=1000) stamina = 999;
                         if (scene.getNumberOfLives() < 3) {
                             scene.setNumberOfLives(scene.getNumberOfLives() +1); // Sonic regagne 1pv.
                         }

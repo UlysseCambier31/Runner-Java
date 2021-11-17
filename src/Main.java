@@ -18,6 +18,7 @@ public class Main extends Application{
     int step = 0; // définit l'état du jeu : lancé, en cours, arrété.
     int waittospawn = 0; // waittospawn& waittospawnmaw permettent de s'assurer que le joueur ne reçois pas d'énemi dès le lancement du jeu.
     int waittospawnmax = 200;
+    int debugindex = 0;
     public void start(Stage primaryStage){
         primaryStage.setTitle("Java CAMBIER Ulysse - SONIC THE HEDGEHOG");
         Group root = new Group();

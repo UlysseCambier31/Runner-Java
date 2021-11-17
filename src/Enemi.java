@@ -37,21 +37,22 @@ public class Enemi extends AnimatedThing{
 
         //Boss bullets
         if (EnemiType==-2) {
-            imgView.setViewport(new Rectangle2D((85 * 6), 160*2, 85, 100));
+            x-=10;
+            imgView.setViewport(new Rectangle2D(85*6, (160*2), 85, 100));
         }
 
         //Anneaux - Pas un enemi mais bon...
-        if (EnemiType==-1) {
-            imgView.setViewport(new Rectangle2D(0 + (64 * (index % 10)), 0, 64, 64));
+        else if (EnemiType==-1) {
+            imgView.setViewport(new Rectangle2D(64 * (index % 10), 0, 64, 64));
         }
 
         //crab Enemi
         else if (EnemiType==0) {
-            imgView.setViewport(new Rectangle2D(0 + (85 * (index % 3)), 0, 85, 100));
+            imgView.setViewport(new Rectangle2D(85 * (index % 3), 0, 85, 100));
         }
         //Spikes
         else if (EnemiType==1) {
-            imgView.setViewport(new Rectangle2D(0+(85*3)+(85*(index%3)), 0, 85, 100));
+            imgView.setViewport(new Rectangle2D((85*3)+(85*(index%3)), 0, 85, 100));
         }
         //Fish Up (goes with Fish down and bridge )
         else if (EnemiType==2) { // poisson avec saut simplifié
@@ -63,8 +64,8 @@ public class Enemi extends AnimatedThing{
             }
         }
         //thing on tree (goes with tree)
-        if (EnemiType==3) {
-            imgView.setViewport(new Rectangle2D(0 + (85 * (index % 3)), 160*2, 85, 100));
+        else if (EnemiType==3) {
+            imgView.setViewport(new Rectangle2D(85 * (index % 3), 160*2, 85, 100));
         }
 
         // Plus extactement des enemis, mais des images ou animations importantes en rapport avec.
@@ -78,46 +79,46 @@ public class Enemi extends AnimatedThing{
             }
         }
         //tree
-        if (EnemiType==5) {
+        else if (EnemiType==5) {
             imgView.setViewport(new Rectangle2D(479, 341, 125, 290));
         }
         //Explosion Effect
-        if (EnemiType==6) {
-            imgView.setViewport(new Rectangle2D(0 + (85 * (index % 5)), 160*3, 85, 100));
+        else if (EnemiType==6) {
+            imgView.setViewport(new Rectangle2D(85 * (index % 5), 160*3, 85, 100));
             if (index==5){
                 EnemiType=7;
             }
         }
         //Explosion End
-        if (EnemiType==7) {
-            imgView.setViewport(new Rectangle2D(0 + (85 * 5), 160*3, 85, 100));
+        else if (EnemiType==7) {
+            imgView.setViewport(new Rectangle2D(85 * 5, 160*3, 85, 100));
         }
         //pont
-        if (EnemiType==8){
+        else if (EnemiType==8){
 
-            imgView.setViewport(new Rectangle2D(0+(124*(index%2)),0,124,400));
+            imgView.setViewport(new Rectangle2D(124*(index%2),0,124,400));
         }
         //boss
-        if (EnemiType==9){//boss in
+        else if (EnemiType==9){//boss in
             if (x > 510) {
                 x -=1;
-                imgView.setViewport(new Rectangle2D(0,0+(61*(index%4)),97,61));
+                imgView.setViewport(new Rectangle2D(0,61*(index%4),97,61));
             } else {
                 EnemiType=12;
             }
         }
-        if (EnemiType==10) {//boss out
+        else if (EnemiType==10) {//boss out
             if (x < 600) {
                 x +=1;
-                imgView.setViewport(new Rectangle2D(0,0+(61*(index%4)),97,61));
+                imgView.setViewport(new Rectangle2D(0,61*(index%4),97,61));
             } else {
                 EnemiType=13;
             }
         }
-        if(EnemiType==11){//boss up
+        else if(EnemiType==11){//boss up
             if (y > 10) {
                 y -=1;
-                imgView.setViewport(new Rectangle2D(0,0+(61*(index%4)),97,61));
+                imgView.setViewport(new Rectangle2D(0,61*(index%4),97,61));
             } else {
                 EnemiType=12;
             }
@@ -125,10 +126,10 @@ public class Enemi extends AnimatedThing{
                 EnemiType=10;
             }
         }
-        if(EnemiType==12){//boss down
+        else if(EnemiType==12){//boss down
             if (y < 250) {
                 y +=1;
-                imgView.setViewport(new Rectangle2D(0,0+(61*(index%4)),97,61));
+                imgView.setViewport(new Rectangle2D(0,61*(index%4),97,61));
             }  else  {
                 EnemiType=11;
             }
@@ -136,11 +137,11 @@ public class Enemi extends AnimatedThing{
                 EnemiType=10;
             }
         }
-        if(EnemiType==13){//get boss out of screen
+        else if(EnemiType==13){//get boss out of screen
             y=600;
         }
         // Update position
-        if (EnemiType>8) {
+        if (EnemiType>8||EnemiType==-2) {
             imgView.setY(y);
             imgView.setX(x);
         } else {

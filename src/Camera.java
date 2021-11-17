@@ -2,24 +2,12 @@ public class Camera {
     private double x;
     private double y;
     private double v_x;
-    private double v_y;
+    //private double v_y;
     private double acceleration;
 
 
     public double getX() {
         return x;
-    }
-
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
     }
 
     public double getAcceleration() {
@@ -37,7 +25,7 @@ public class Camera {
         this.x = x;
         this.y = y;
         this.v_x = 0;
-        this.v_y=0;
+        //this.v_y=0;
         this.acceleration = 5;
     }
 

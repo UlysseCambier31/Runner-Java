@@ -159,6 +159,7 @@ public class GameScene extends Scene {
     }
 
     public  void update(long time,Camera cam){
+
         //On update la position du fond en prenant compte de l'acc accumulé et du l'éventuelle superspeed.
         // Effet parallax.
         x = (x + cam.getVx()*16*(Math.pow(10,-3)*(2+cam.getAcceleration()*(1+(heros.getSuperspeedmultiplier()*2))))) % 800;
@@ -182,11 +183,13 @@ public class GameScene extends Scene {
 
         // Si le jeu est toujours en cours
         if (numberOfLives>0){
-            cam.setAcceleration(cam.getAcceleration()+0.003); // On accumule de l'acceleration.
+            if(boss!=2) {
+                cam.setAcceleration(cam.getAcceleration() + 0.003); // On accumule de l'acceleration sauf en boss.
+            }
             score = score +(int)(cam.getAcceleration()/2)+2*heros.getSuperspeedmultiplier(); // On accumule du score, et on gagne un bonus si on est en superspeed.
             scoretext.setText("Score : "+this.score); // On update le score affiché.
             if (score>1000&&boss==0){
-                boss = 1;
+                // On désactive la mécanique de boss //boss = 1;
             } if (score>7000&boss==2){
                 boss = 3;
             }
@@ -271,7 +274,7 @@ public class GameScene extends Scene {
                 if (rd == 1) {
                     Image bulletspritesheet = new Image(syspath + "\\img\\heros.png");
                     ImageView bulletsprite = new ImageView(bulletspritesheet);
-                    enemis.add(new Enemi(bosssprite.getX() - 30, bosssprite.getY(), bulletsprite, -2));
+                    enemis.add(new Enemi(bosssprite.getX(), bosssprite.getY(), bulletsprite, -2));
                     g.getChildren().add(enemis.get(enemis.size() - 1).getImgView());
                 }
             }// Not working....
