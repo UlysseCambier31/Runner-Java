@@ -40,6 +40,9 @@ public class GameScene extends Scene {
     private Text scoretext;
     private int boss;
     private  ImageView bosssprite;
+    private int bosswave;
+    private int waittospawn = 0; // waittospawn& waittospawnmaw permettent de s'assurer que le joueur ne reçois pas d'énemi dès le lancement du jeu.
+    private int waittospawnmax = 200;
 
     public GameScene(Group g , Camera mainCamera) {
 
@@ -49,6 +52,7 @@ public class GameScene extends Scene {
 
         this.score=0;
         this.boss=0;
+        this.bosswave=0;
 
         //Hero init
         Image spriteSheet = new Image(syspath+"\\img\\heros.png");
@@ -147,6 +151,13 @@ public class GameScene extends Scene {
         return boss;
     }
 
+    public void setWaittospawn(int waittospawn) {
+        this.waittospawn = waittospawn;
+    }
+
+    public int getWaittospawn() {
+        return waittospawn;
+    }
 
     public void HideStartScreen() {
         startscreen.getImgView().setX(600);
@@ -159,7 +170,6 @@ public class GameScene extends Scene {
     }
 
     public  void update(long time,Camera cam){
-
         //On update la position du fond en prenant compte de l'acc accumulé et du l'éventuelle superspeed.
         // Effet parallax.
         x = (x + cam.getVx()*16*(Math.pow(10,-3)*(2+cam.getAcceleration()*(1+(heros.getSuperspeedmultiplier()*2))))) % 800;
@@ -188,10 +198,11 @@ public class GameScene extends Scene {
             }
             score = score +(int)(cam.getAcceleration()/2)+2*heros.getSuperspeedmultiplier(); // On accumule du score, et on gagne un bonus si on est en superspeed.
             scoretext.setText("Score : "+this.score); // On update le score affiché.
-            if (score>1000&&boss==0){
-                // On désactive la mécanique de boss //boss = 1;
-            } if (score>7000&boss==2){
+            if (score>(Math.pow(10,4+bosswave))&&boss==0){
+                boss = 1;
+            } if (score>(Math.pow(10,4+bosswave)+10000)&boss==2){
                 boss = 3;
+                bosswave++;
             }
         }
 
@@ -212,7 +223,34 @@ public class GameScene extends Scene {
         if (heros.getStamina()==1000){
             speedsprite.setViewport(new Rectangle2D(5+(85 * 4), (160*2)+15, 85, 100));//Stamina full -> changement d'image.
         }
+
     }
+
+    public  int Lateupdate(long time,Camera cam,int step,Group g){
+
+        if(enemis.size()>10){
+            int i =0;
+            while(enemis.size()>11) {
+                if(!(enemis.get(i).EnemiType>8)){
+                    enemis.remove(i);
+                }
+                i++;
+            }// No more than 10 enemis handeled outside boss  for perf.
+        }
+
+        for (Enemi enemi : enemis) {                      // Update
+            enemi.update(time, MainCamera,this);    // des
+        }                                                // Enemis
+        if (waittospawn>waittospawnmax&&step==3) { // Appel
+            enemiSpwaner(time, g, MainCamera);     // du Enemi
+        }                                          // Spawner
+        if(getNumberOfLives()==0&&step==3){ //Check
+            spawnGameOver(g);               //for
+            return 4;                       //GAME OVER
+        }
+        return step;
+    }
+
     public void spawnGameOver(Group g) {
         // On crée le texte GAMEOVER
         Text gameover = new Text (100, 150, "GAME \n OVER");
@@ -271,13 +309,13 @@ public class GameScene extends Scene {
                 g.getChildren().add(enemis.get(enemis.size() - 1).getImgView());
             } else if (boss==2) {
                 int rd = new Random().nextInt(5);
-                if (rd == 1) {
-                    Image bulletspritesheet = new Image(syspath + "\\img\\heros.png");
+                if (rd <3  && Math.abs(bosssprite.getY()-(heros.getImgView().getY()+10))<10) {
+                    Image bulletspritesheet = new Image(syspath + "\\img\\fireball.png");
                     ImageView bulletsprite = new ImageView(bulletspritesheet);
-                    enemis.add(new Enemi(bosssprite.getX(), bosssprite.getY(), bulletsprite, -2));
+                    enemis.add(new Enemi(bosssprite.getX(), bosssprite.getY()+25, bulletsprite, -2));
                     g.getChildren().add(enemis.get(enemis.size() - 1).getImgView());
                 }
-            }// Not working....
+            }
             subindex=0; // On reset le temps d'attente après le spawn d'un enemi.
         }
     }

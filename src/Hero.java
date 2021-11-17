@@ -56,8 +56,11 @@ public class Hero extends AnimatedThing {
     }
 
     static  boolean collision(Hero hero, Enemi enemi) {
+
         //Une fonction qui permet de trouver une collision entre deux objets.
         double alpha = 20;//Alpha permet de réduire la taille de la hitbox qui est trop grande...
+
+        if(enemi.getEnemiType()==-2) alpha=0;
 
         double rectaleft = hero.getX()+alpha;
         double rectaright = hero.getX()+hero.getImgView().getViewport().getWidth()-alpha;
@@ -68,6 +71,11 @@ public class Hero extends AnimatedThing {
         double rectbright = enemi.getX()+enemi.getImgView().getViewport().getWidth()-alpha;
         double rectbtop= enemi.getY()+enemi.getImgView().getViewport().getHeight()-alpha;
         double rectbbottom = enemi.getY()+alpha;
+
+        if(enemi.getEnemiType()==-2){
+            rectaleft =200-150;
+            rectaright=285-150;
+        }
 
         if (rectaleft < rectbright && rectaright > rectbleft &&
                 rectatop > rectbbottom && rectabottom < rectbtop ) {

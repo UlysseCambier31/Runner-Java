@@ -38,7 +38,7 @@ public class Enemi extends AnimatedThing{
         //Boss bullets
         if (EnemiType==-2) {
             x-=10;
-            imgView.setViewport(new Rectangle2D(85*6, (160*2), 85, 100));
+            imgView.setViewport(new Rectangle2D(33+((85*(index%2))-4), 27, 58, 47));
         }
 
         //Anneaux - Pas un enemi mais bon...
