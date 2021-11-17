@@ -198,11 +198,11 @@ public class GameScene extends Scene {
             }
             score = score +(int)(cam.getAcceleration()/2)+2*heros.getSuperspeedmultiplier(); // On accumule du score, et on gagne un bonus si on est en superspeed.
             scoretext.setText("Score : "+this.score); // On update le score affiché.
-            if (score>(Math.pow(10,4+bosswave))&&boss==0){  // Apparition du boss toute les puissances de 10 en score.
+            if (score>(Math.pow(10,4+bosswave))&&boss==0){  // Apparition du boss.
                 boss = 1;
             } if (score>(Math.pow(10,4+bosswave)+10000)&boss==2){ // Disparition du boss 10000 de score plus loin.
                 boss = 3;
-                bosswave++;
+                bosswave++; // bosswave ne fonctionne pas
             }
         }
 
