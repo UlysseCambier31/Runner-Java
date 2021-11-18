@@ -18,6 +18,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import org.w3c.dom.css.Rect;
 
 import java.io.File;
@@ -62,10 +63,24 @@ public class GameScene extends Scene {
         //musics
         Media sonicsound = new Media(new File(syspath+"\\sound\\sonic-the-hedgehog-ost-green-hill-zone.mp3").toURI().toString());
         sonicplayer = new MediaPlayer(sonicsound);
+        sonicplayer.setOnEndOfMedia(new Runnable() {
+            @Override
+            public void run() {
+                sonicplayer.seek(Duration.ZERO);
+                sonicplayer.play();
+            }
+        });
         sonicplayer.play();
 
         Media bosssound = new Media(new File(syspath+"\\sound\\doom-theme.mp3").toURI().toString());
         doomplayer = new MediaPlayer(bosssound);
+        doomplayer.setOnEndOfMedia(new Runnable() {
+            @Override
+            public void run() {
+                doomplayer.seek(Duration.ZERO);
+                doomplayer.play();
+            }
+        });
 
         //Hero init
         Image spriteSheet = new Image(syspath+"\\img\\heros.png");
