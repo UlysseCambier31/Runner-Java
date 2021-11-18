@@ -12,12 +12,15 @@ import javafx.scene.SceneAntialiasing;
 import javafx.scene.effect.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import org.w3c.dom.css.Rect;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -43,6 +46,8 @@ public class GameScene extends Scene {
     private int bosswave;
     private int waittospawn = 0; // waittospawn& waittospawnmaw permettent de s'assurer que le joueur ne reçois pas d'énemi dès le lancement du jeu.
     private int waittospawnmax = 200;
+    private MediaPlayer sonicplayer;
+    private MediaPlayer doomplayer;
 
     public GameScene(Group g , Camera mainCamera) {
 
@@ -53,6 +58,14 @@ public class GameScene extends Scene {
         this.score=0;
         this.boss=0;
         this.bosswave=0;
+
+        //musics
+        Media sonicsound = new Media(new File(syspath+"\\sound\\sonic-the-hedgehog-ost-green-hill-zone.mp3").toURI().toString());
+        sonicplayer = new MediaPlayer(sonicsound);
+        sonicplayer.play();
+
+        Media bosssound = new Media(new File(syspath+"\\sound\\doom-theme.mp3").toURI().toString());
+        doomplayer = new MediaPlayer(bosssound);
 
         //Hero init
         Image spriteSheet = new Image(syspath+"\\img\\heros.png");
@@ -199,10 +212,14 @@ public class GameScene extends Scene {
             score = score +(int)(cam.getAcceleration()/2)+2*heros.getSuperspeedmultiplier(); // On accumule du score, et on gagne un bonus si on est en superspeed.
             scoretext.setText("Score : "+this.score); // On update le score affiché.
             if (score>(Math.pow(10,4+bosswave))&&boss==0){  // Apparition du boss toute les puissance de 10 à partir de 10000.
+                sonicplayer.stop();//changement de musique
+                doomplayer.play();
                 boss = 1;
             } if (score>(Math.pow(10,4+bosswave)+10000)&&boss==2){ // Disparition du boss 10000 de score plus loin.
                 bosswave++;
                 boss = 0;
+                doomplayer.stop();//changement de musique
+                sonicplayer.play();
             }
         }
 

@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 public class Main extends Application{
     int step = 0; // définit l'état du jeu : lancé, en cours, arrété.
     public void start(Stage primaryStage){
+        System.out.println("Ajoutez javafx.media dans vos VM options svp...");
         primaryStage.setTitle("Java CAMBIER Ulysse - SONIC THE HEDGEHOG");
         Group root = new Group();
         Camera MainCamera = new Camera(10,10);
