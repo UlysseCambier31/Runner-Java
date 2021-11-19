@@ -340,8 +340,8 @@ public class GameScene extends Scene {
                 enemis.add(new Enemi(600, 20, bosssprite, 9));
                 g.getChildren().add(enemis.get(enemis.size() - 1).getImgView());
             } else if (boss==2) { // Phase de tire dans la phase de boss.
-                int rd = new Random().nextInt(5);
-                if (rd <3  && Math.abs(bosssprite.getY()-(heros.getImgView().getY()+10))<10) {
+                int rd = new Random().nextInt(10);
+                if (rd <5  && Math.abs(bosssprite.getY()-(heros.getImgView().getY()+10))<10) {
                     Image bulletspritesheet = new Image(syspath + "\\img\\fireball.png");
                     ImageView bulletsprite = new ImageView(bulletspritesheet);
                     enemis.add(new Enemi(bosssprite.getX(), bosssprite.getY()+25, bulletsprite, -2));
