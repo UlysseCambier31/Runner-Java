@@ -72,7 +72,7 @@ public class GameScene extends Scene {
         });
         sonicplayer.play();
 
-        Media bosssound = new Media(new File(syspath+"\\sound\\doom-theme.mp3").toURI().toString());
+        Media bosssound = new Media(new File(syspath+"\\sound\\sonic-1-music-bosses.mp3").toURI().toString());
         doomplayer = new MediaPlayer(bosssound);
         doomplayer.setOnEndOfMedia(new Runnable() {
             @Override
